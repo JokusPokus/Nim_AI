@@ -6,5 +6,15 @@
 </head>
 <body>
     <h1>This is my Nim AI</h1>
+
+    {% if word is none %}
+    <form method="POST" action="{{ url_for('nim') }}">
+        <input name="word" type="text" placeholder="Enter your name">
+        <button>Submit!</button>
+    </form>
+    {% else %}
+    <p>Nice to meet you, {{ word }}</p>
+    {% endif %}
+
 </body>
 </html>
