@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Jakob Schmitt</title>
+    <script>
+              // Function to change heading to say goodbye
+              function hello() {
+                  document.querySelector('h1').innerHTML = 'Goodbye!';
+              }
+          </script>
 </head>
 <body>
     <h1>Welcome to my cool website!</h1>
+    <button onclick="hello()">Click Here!</button>
 
     <h2>Can you beat my Nim AI? <a href="{{ url_for('nim') }}">Click here!</a></h2>
 </body>

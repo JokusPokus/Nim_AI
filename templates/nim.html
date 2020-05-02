@@ -3,18 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <title>Nim AI</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .coin {
+            width: 100px;
+        }
+
+        .jumbotron {
+            width: 60%;
+            padding: 20px
+        }
+    </style>
 </head>
 <body>
+<div class="jumbotron mx-auto my-5">
+
+
     <h1>This is my Nim AI</h1>
 
-    {% if word is none %}
+    {% if n_train is none %}
     <form method="POST" action="{{ url_for('nim') }}">
-        <input name="word" type="text" placeholder="Enter your name">
+        <h3>How many rounds should the AI be trained??</h3>
+        <input name="n_train" type="number" placeholder="Enter a number">
         <button>Submit!</button>
     </form>
     {% else %}
-    <p>Nice to meet you, {{ word }}</p>
-    {% endif %}
+        {% if new_board is not none %}
+            <div id="board" class="my-5 mx-3">
+                {% for i in range(new_board|length) %}
+                    <div class="row">
+                        <div>
+                            {{ i + 1 }}
+                        </div>
+                        {% if new_board[i] == 0 %}
+                            <div>
+                                <img class="coin" src="https://i.pinimg.com/originals/48/3f/b5/483fb5b680d22f94f90f89f4bace432b.gif">
+                            </div>
+                        {% else %}
+                            {% for j in range(new_board[i]) %}
+                                <div>
+                                    <img class="coin" src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png">
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
+    <form action="{{ url_for('nim') }}" id="makeMove" method="POST">
+        <p>From which pile would you like to remove coins?</p>
+        <input name="pile" type="number">
+        <p class="mt-4">How many coins would you like to remove?</p>
+        <input name="amount" type="number">
+
+        <button type="submit">Make your move</button>
+    </form>
+
+    <form action="{{ url_for('nim') }}" id="reset" method="GET" class="mt-4">
+        <button type="submit">Reset game</button>
+    </form>
+
+    {% endif %}
+</div>
+
+<script>
+    $("#makeMove").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        const form = $(this);
+        const url = form.attr('action');
+
+        $.ajax(url, {
+            method: "POST",
+            data: form.serialize(), // serializes the form's elements.
+            dataType: html,
+            success: function(response){
+                $("#board").html($('#board', response).html());
+            }
+        });
+    });
+
+    $("#reset").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        const form = $(this);
+        const url = form.attr('action');
+
+        $.ajax(url, {
+            method: "GET",
+            dataType: html,
+            success: function(response){
+                $("#board").html($('#board', response).html());
+            }
+        });
+    });
+</script>
 </body>
 </html>
