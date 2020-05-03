@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Jakob Schmitt</title>
-    <script>
-              // Function to change heading to say goodbye
-              function hello() {
-                  document.querySelector('h1').innerHTML = 'Goodbye!';
-              }
-          </script>
-</head>
-<body>
-    <h1>Welcome to my cool website!</h1>
-    <button onclick="hello()">Click Here!</button>
+{% extends "layout.html" %}
 
-    <h2>Can you beat my Nim AI?</h2>
-    <a href="{{ url_for('nim', status='before') }}"><button class="button">Challenge accepted!</button></a>
-</body>
-</html>
+{% block heading %}
+    <h1>Welcome to my cool website!</h1>
+{% endblock %}
+
+{% block body %}
+    <h2 class="my-3">Can you beat my Nim AI?</h2>
+    <a href="{{ url_for('nim', status='before') }}"><button class="btn btn-lg btn-success my-3">Challenge accepted!</button></a>
+{% endblock %}

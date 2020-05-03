@@ -19,53 +19,54 @@ def index():
 @app.route("/nim", methods=["GET", "POST"])
 def nim():
     if request.method == "GET":
-        # If page is requested before training
+        # When page is requested before training
         if request.args.get("status") == "before":
             session["n_train"] = None
             session["nim_ai"] = None
-            session["current_player"] = None
+            session["winner"] = 0  # no winner yet
             session["current_board"] = INITIAL_BOARD
 
         # When resetting game
-        session["current_player"] = 0  # Human
-        session["current_board"] = INITIAL_BOARD
-
-        # Calculate an AI move if requested
-        if request.args.get("move") == "ai":
-            print("Yippie Yeah")
-            pile, amount = session["nim_ai"].choose_action(session["current_board"], epsilon=False)
-
-            # Update board based on AI move
-            session["current_board"][pile] -= amount
-
-            # Change current player to Human
-            session["current_player"] = 0
-
-    else:
-        print("POST requesssst")
-        # When training is requested
-        if "n_train" in request.form:
-            print("Yippie")
-            session["n_train"] = int(request.form.get("n_train"))
-            session["nim_ai"] = train(session["n_train"])
-
-            # Human starts
-            session["current_player"] = 0
+        if request.args.get("status") == "reset":
+            session["current_board"] = INITIAL_BOARD
+            session["winner"] = 0  # no winner yet
 
         # When player makes a move
-        if "pile" in request.form:
-            pile = int(request.form.get("pile"))
-        if "amount" in request.form:
-            amount = int(request.form.get("amount"))
+        if request.args.get("pile"):
+            pile = int(request.args.get("pile"))
+            amount = int(request.args.get("amount"))
 
             # Take chosen amount of objects from the pile
             # (but don't allow negative amounts)
             session["current_board"][pile - 1] -= min(amount, session["current_board"][pile - 1])
 
-            # Change current player to AI
-            session["current_player"] = 1
+        # Calculate an AI move if requested and game still going
+        if request.args.get("status") == "ai_move":
+
+            # If Human has already lost
+            if not any(session["current_board"]):
+                session["winner"] = "AI"
+
+            # If game is still going on
+            else:
+                pile, amount = session["nim_ai"].choose_action(session["current_board"], epsilon=False)
+
+                # Update board based on AI move
+                session["current_board"][pile] -= amount
+                print(session["current_board"])
+
+                # If AI lost the game
+                if not any(session["current_board"]):
+                    session["winner"] = "Human"
+
+    else:
+
+        # When training is requested
+        if "n_train" in request.form:
+            session["n_train"] = int(request.form.get("n_train"))
+            session["nim_ai"] = train(session["n_train"])
 
     return render_template("nim.html",
                            is_trained=bool(session["nim_ai"]),
-                           new_board=session["current_board"])
-
+                           new_board=session["current_board"],
+                           winner=session["winner"])

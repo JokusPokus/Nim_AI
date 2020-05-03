@@ -1,40 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Nim AI</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
-    <style>
-        .coin {
-            width: 100px;
-        }
+{% extends "layout.html" %}
 
-        .jumbotron {
-            width: 60%;
-            padding: 20px
-        }
-    </style>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-</head>
-<body>
-<div class="jumbotron mx-auto my-5">
+{% block heading %}
 
-<!--    <img src="https://thumbs.gfycat.com/EllipticalCostlyChrysomelid-size_restricted.gif">-->
-    <h1>This is my Nim AI</h1>
+{% endblock %}
+
+{% block body %}
+
 
     {% if not is_trained %}
     <form method="POST" action="{{ url_for('nim') }}">
-        <h3>How many rounds should the AI be trained??</h3>
-        <input name="n_train" type="number" placeholder="Enter a number">
-        <button>Submit!</button>
+        <h3>How many rounds should the AI be trained?</h3>
+        <div class="mt-4">
+            <p>If you want to try out the game and be sure to win, select a number below 10.</p>
+            <p>For a real challenge, you can go as far as 50000.</p>
+        </div>
+        <input name="n_train" type="number" placeholder="Enter a number" class="form-control mt-4" min="1" max="50000">
+        <button class="btn btn-info my-4">Start Training!</button>
+
     </form>
     {% else %}
+
         {% if new_board is not none %}
-            <div id="board" class="my-5 mx-3">
+
+            <div id="board" class="mb-5 mx-3">
+            <meta id="winner" data-name="{{ winner }}">
+
+            {% if not winner %}
                 {% for i in range(new_board|length) %}
-                    <div class="row">
+                    <div class="row mb-3">
                         <div>
                             {{ i + 1 }}
                         </div>
@@ -51,25 +44,66 @@
                         {% endif %}
                     </div>
                 {% endfor %}
+
+
+
+            {% elif winner == "Human" %}
+                <img src="https://media1.tenor.com/images/3f323460a03b2ca804a4558e95a86c01/tenor.gif?itemid=11753535">
+                <div class="alert alert-success mt-3 outcome-alert" role="alert">
+                    Congrats, you won!!
+                </div>
+
+
+            {% else %}
+                <img src="https://i.imgur.com/57QHRtf.gif" alt="Robot smiling">
+                <div class="alert alert-danger mt-3 outcome-alert" role="alert">
+                    Oh no, you lost!!
+                </div>
+
+            {% endif %}
             </div>
+
+            <div class="row ai-ops ml-3">
+                <div class="col-6 pl-0">
+                    {% if not winner %}
+                        <form action="{{ url_for('nim') }}" id="makeMove" method="POST">
+                            <p>From which pile would you like to remove coins?</p>
+                            <input name="pile" type="number" min="1" max="4" required class="form-control">
+                            <p class="mt-4">How many coins would you like to remove?</p>
+                            <input name="amount" id="set-amount" type="number" min="1" max="7" required class="form-control">
+
+                            <button type="submit" id="submit-btn" class="btn btn-info ml-2">Make your move</button>
+                        </form>
+                        <form action="{{ url_for('nim') }}" id="reset" method="GET" class="mt-4">
+                            <button type="submit" class="btn btn-outline-info">Reset game</button>
+                        </form>
+
+                        <a href="{{ url_for('nim', status='before')}}">
+                            <button type="submit" class="btn btn-outline-info mt-3">Retrain AI</button>
+                        </a>
+
+                    {% endif %}
+                </div>
+                <div class="col-6">
+                    {% if not winner %}
+                        <div id="message">
+                            <div class="alert alert-info" role="alert">
+                                Please make a move!
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
         {% endif %}
 
-    <form action="{{ url_for('nim') }}" id="makeMove" method="POST">
-        <p>From which pile would you like to remove coins?</p>
-        <input name="pile" type="number">
-        <p class="mt-4">How many coins would you like to remove?</p>
-        <input name="amount" type="number">
 
-        <button type="submit">Make your move</button>
-    </form>
-
-    <form action="{{ url_for('nim') }}" id="reset" method="GET" class="mt-4">
-        <button type="submit">Reset game</button>
-    </form>
 
     {% endif %}
-</div>
 
+{% endblock %}
+
+{% block scripts %}
 <script>
     $("#makeMove").submit(function(e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -79,18 +113,24 @@
 
         $.ajax({
             url: url,
-            method: "POST",
+            method: "GET",
+            async: false,
             data: form.serialize(), // serializes the form's elements
             success: function(response){
                 $("#board").html($('#board', response).html());
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    data: "move=ai",
-                    success: function(ai_response){
-                        $("#board").html($('#board', ai_response).html());
-                    }
-                })
+                $("#message").html("<div class='alert alert-info' role='alert'>Analyzing the board...</div><img id='thinking' src='https://media.giphy.com/media/SabSYEpsVh0di/giphy.gif'>");
+                window.setTimeout(function(){
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        async: false,
+                        data: "status=ai_move",
+                        success: function(ai_response){
+                            $("#board").html($('#board', ai_response).html());
+                            $("#message").html("<div class='alert alert-info' role='alert'>AI made a move. Your turn!</div>")
+                        }
+                    })
+                }, 2000)
             },
         });
     });
@@ -104,11 +144,11 @@
 
         $.ajax(url, {
             method: "GET",
+            data: "status=reset",
             success: function(response){
                 $("#board").html($('#board', response).html());
             }
         });
     });
 </script>
-</body>
-</html>
+{% endblock %}
