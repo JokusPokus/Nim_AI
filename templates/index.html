@@ -14,6 +14,7 @@
     <h1>Welcome to my cool website!</h1>
     <button onclick="hello()">Click Here!</button>
 
-    <h2>Can you beat my Nim AI? <a href="{{ url_for('nim') }}">Click here!</a></h2>
+    <h2>Can you beat my Nim AI?</h2>
+    <a href="{{ url_for('nim', status='before') }}"><button class="button">Challenge accepted!</button></a>
 </body>
 </html>

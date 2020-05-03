@@ -16,14 +16,15 @@
             padding: 20px
         }
     </style>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <div class="jumbotron mx-auto my-5">
 
-
+<!--    <img src="https://thumbs.gfycat.com/EllipticalCostlyChrysomelid-size_restricted.gif">-->
     <h1>This is my Nim AI</h1>
 
-    {% if n_train is none %}
+    {% if not is_trained %}
     <form method="POST" action="{{ url_for('nim') }}">
         <h3>How many rounds should the AI be trained??</h3>
         <input name="n_train" type="number" placeholder="Enter a number">
@@ -71,19 +72,26 @@
 
 <script>
     $("#makeMove").submit(function(e) {
-
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         const form = $(this);
         const url = form.attr('action');
 
-        $.ajax(url, {
+        $.ajax({
+            url: url,
             method: "POST",
-            data: form.serialize(), // serializes the form's elements.
-            dataType: html,
+            data: form.serialize(), // serializes the form's elements
             success: function(response){
                 $("#board").html($('#board', response).html());
-            }
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    data: "move=ai",
+                    success: function(ai_response){
+                        $("#board").html($('#board', ai_response).html());
+                    }
+                })
+            },
         });
     });
 
@@ -96,7 +104,6 @@
 
         $.ajax(url, {
             method: "GET",
-            dataType: html,
             success: function(response){
                 $("#board").html($('#board', response).html());
             }
