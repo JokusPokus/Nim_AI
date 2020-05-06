@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, session, make_response
 from flask_session import Session
-from nimAI import train
+import nim_gameplay as ngp
 
 app = Flask(__name__)
 
@@ -24,11 +24,7 @@ def nim_train():
 @app.route("/nim", methods=["POST"])
 def nim():
     # When training is requested (via POST request)
-    session["n_train"] = int(request.form.get("n_train"))
-    session["nim_ai"] = train(session["n_train"])
-    session["current_board"] = INITIAL_BOARD.copy()
-    session["winner"] = 0  # no winner yet
-
+    ngp.train_and_initialize(session, request.form.get("n_train"), board=INITIAL_BOARD.copy())
     return render_template("nim.html",
                            new_board=session["current_board"],
                            winner=session["winner"])
@@ -38,37 +34,15 @@ def nim():
 def nim_move():
     # When resetting game
     if request.args.get("status") == "reset":
-        session["current_board"] = INITIAL_BOARD.copy()
-        session["winner"] = 0  # no winner yet
+        ngp.reset_board(session, board=INITIAL_BOARD.copy())
 
     # When player makes a move
     if request.args.get("pile"):
-        pile = int(request.args.get("pile"))
-        amount = int(request.args.get("amount"))
+        ngp.player_move(session, pile=request.args.get("pile"), amount=request.args.get("amount"))
 
-        # Take chosen amount of objects from the pile
-        # (but don't allow negative amounts)
-        session["current_board"][pile - 1] -= min(amount, session["current_board"][pile - 1])
-
-    # Calculate an AI move if requested and game still going
+    # If game still going: Calculate an AI move
+    # If game over: Show result
     if request.args.get("status") == "ai_move":
+        ngp.ai_move(session)
 
-        # If Human has already lost
-        if not any(session["current_board"]):
-            session["winner"] = "AI"
-
-        # If game is still going on
-        else:
-            pile, amount = session["nim_ai"].choose_action(session["current_board"], epsilon=False)
-
-            # Update board based on AI move
-            session["current_board"][pile] -= amount
-            print(session["current_board"])
-
-            # If AI lost the game
-            if not any(session["current_board"]):
-                session["winner"] = "Human"
-
-    return render_template("nim_board.html",
-                           winner=session["winner"],
-                           new_board=session["current_board"])
+    return render_template("nim_board.html", winner=session["winner"], new_board=session["current_board"])
