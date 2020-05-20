@@ -15,14 +15,13 @@
             {{ i + 1 }}
         </div>
         {% if new_board[i] == 0 %}
-        <div>
-            <img class="coin bounce-in-top"
-                src="https://i.pinimg.com/originals/48/3f/b5/483fb5b680d22f94f90f89f4bace432b.gif">
+        <div class="bounce-in-top">
+            <img class="coin " src="https://i.pinimg.com/originals/48/3f/b5/483fb5b680d22f94f90f89f4bace432b.gif">
         </div>
         {% else %}
         {% for j in range(new_board[i]) %}
-        <div>
-            <img class="coin bounce-in-top"
+        <div class="bounce-in-top">
+            <img class="coin "
                 src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png">
         </div>
         {% endfor %}
@@ -45,28 +44,7 @@
     {% endif %}
 </div>
 
-<div class="row ai-ops ml-3">
-    <div class="col-6 pl-0">
-        {% if not winner %}
-        <form action="{{ url_for('nim_move') }}" id="makeMove" method="POST">
-            <p>From which pile would you like to remove coins?</p>
-            <input name="pile" type="number" min="1" max="4" required class="form-control">
-            <p class="mt-4">How many coins would you like to remove?</p>
-            <input name="amount" id="set-amount" type="number" min="1" max="7" required class="form-control">
-
-            <button type="submit" id="submit-btn" class="btn btn-info ml-2">Make your move</button>
-        </form>
-        <form action="{{ url_for('nim_move') }}" id="reset" method="GET" class="mt-4">
-            <button type="submit" class="btn btn-outline-info">Reset game</button>
-        </form>
-
-        <a href="{{ url_for('nim_train') }}">
-            <button type="submit" class="btn btn-outline-info mt-3">Retrain AI</button>
-        </a>
-
-        {% endif %}
-    </div>
-
+<div class="ai-ops content__container">
     <div class="col-6">
         {% if not winner %}
         <div id="message">
@@ -75,6 +53,28 @@
             </div>
         </div>
         {% endif %}
+    </div>
+    <div class="">
+        {% if not winner %}
+        <form action="{{ url_for('nim_move') }}" id="makeMove" method="POST" class="make-move-form">
+            <p class="mr-3">From which pile would you like to remove coins?</p>
+            <input name="pile" type="number" min="1" max="4" required class="form-control">
+            <p class="mx-3">How many coins would you like to remove?</p>
+            <input name="amount" id="set-amount" type="number" min="1" max="7" required class="form-control">
+        </form>
+        <form action="{{ url_for('nim_move') }}" id="reset" method="GET" class="mt-4">
+            <!-- <button type="submit" class="content__btn">Reset game</button> -->
+        </form>
+        {% endif %}
+    </div>
+    <div class="controls">
+        <a href="{{ url_for('nim_train') }}">
+            <button type="submit" class="controls-btn mr-3">Retrain</button>
+        </a>
+        <button form="makeMove" type="submit" id="submit-btn" class="content__btn">Make your move</button>
+        <button form="reset" type="reset" class="controls-btn ml-3">Reset</button>
+
+
     </div>
 </div>
 
