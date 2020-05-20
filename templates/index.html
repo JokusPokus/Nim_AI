@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
 
-{% block heading %}
-<h1>Welcome to the game!</h1>
-{% endblock %}
 
 {% block body %}
-<h2 class="mt-3 mb-5">Can you beat a Nim AI?</h2>
-<a href="{{ url_for('nim_train') }}" class="content__btn">Challenge accepted!</a>
+<div class="content__container">
+
+    <h1>Welcome to the game!</h1>
+
+    <h2 class="mt-3 mb-5">Can you beat a Nim AI?</h2>
+    <a href="{{ url_for('nim_train') }}" class="content__btn">Challenge accepted!</a>
+</div>
+
 {% endblock %}

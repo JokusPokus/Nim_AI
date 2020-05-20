@@ -23,7 +23,7 @@ a:hover {
 }
 .wrapper {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   position: relative;
   background-color: #1c2a3a;
   display: flex;
@@ -51,6 +51,7 @@ a:hover {
   display: flex;
   justify-content: center;
   z-index: 1;
+  flex-direction: column;
   /* color: #fff; */
 }
 .content__container {
@@ -58,7 +59,6 @@ a:hover {
   border-radius: 10px;
   background-color: #e9d05d;
   /* background-color: #1c2a3a; */
-
   text-align: center;
 }
 
@@ -80,7 +80,28 @@ a:hover {
   box-shadow: 0px 2px 0px 0px #9d6966, 0px 5px 5px 0px rgba(0, 0, 0, 0.6),
     inset 0px 0px 10px -5px #1c2a3a;
 }
-
+/* cloud */
+/* .messege-container {
+  background-image: url(cloud.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 44%;
+  right: 0;
+  align-self: flex-end;
+  justify-self: flex-end;
+  justify-content: end;
+  margin-top: 10px;
+}
+.messege-container__msg {
+  min-height: 180px;
+  position: relative;
+}
+#message {
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
 .coin {
   width: 60px;
 }
@@ -89,7 +110,27 @@ a:hover {
   -webkit-animation: bounce-in-top 1.1s both;
   animation: bounce-in-top 1.1s both;
 }
-
+.bounce-in-top:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.bounce-in-top:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.bounce-in-top:nth-child(4) {
+  animation-delay: 0.75s;
+}
+.bounce-in-top:nth-child(5) {
+  animation-delay: 1.25s;
+}
+.bounce-in-top:nth-child(6) {
+  animation-delay: 1.5s;
+}
+.bounce-in-top:nth-child(7) {
+  animation-delay: 1.75s;
+}
+.bounce-in-top:nth-child(8) {
+  animation-delay: 2s;
+}
 /**
  * ----------------------------------------
  * animation bounce-in-top
