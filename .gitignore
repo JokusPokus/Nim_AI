@@ -1,0 +1,7 @@
+mypython
+flask_session
+*__pycache__*
+*.pyc
+db.sqlite3
+*.DS_Store
+/*_session/
