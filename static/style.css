@@ -52,14 +52,15 @@ a:hover {
   justify-content: center;
   z-index: 1;
   flex-direction: column;
-  /* color: #fff; */
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 .content__container {
-  padding: 50px;
+  padding: 40px;
   border-radius: 10px;
   background-color: #e9d05d;
-  /* background-color: #1c2a3a; */
   text-align: center;
+  justify-content: center;
 }
 
 .content__btn {
@@ -80,28 +81,31 @@ a:hover {
   box-shadow: 0px 2px 0px 0px #9d6966, 0px 5px 5px 0px rgba(0, 0, 0, 0.6),
     inset 0px 0px 10px -5px #1c2a3a;
 }
-/* cloud */
-/* .messege-container {
-  background-image: url(cloud.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 44%;
-  right: 0;
-  align-self: flex-end;
-  justify-self: flex-end;
-  justify-content: end;
-  margin-top: 10px;
+.controls-btn {
+  padding: 15px 25px;
+  margin-top: 20px;
+  background-color: #abbec3;
+  text-transform: uppercase;
+  box-shadow: 0px 6px 0px 0px #abbec3, 0px 5px 12px 0px rgba(0, 0, 0, 0.6),
+    inset 0px 0px 10px -5px #1c2a3a;
+  transition: all 100ms linear;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  height: 80px;
+  width: 110px;
 }
-.messege-container__msg {
-  min-height: 180px;
-  position: relative;
+.controls-btn:hover {
+  top: 3px;
+  left: -3px;
+  box-shadow: 0px 2px 0px 0px #9d6966, 0px 5px 5px 0px rgba(0, 0, 0, 0.6),
+    inset 0px 0px 10px -5px #1c2a3a;
 }
-#message {
-  top: 50%;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
+.make-move-form {
+  display: flex;
+  align-items: center;
+}
+
 .coin {
   width: 60px;
 }
