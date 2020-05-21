@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Iceland&display=swap" rel="stylesheet">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 </head>
+
 <body>
-<div class="jumbotron mx-auto my-5">
-    {% block heading %}{% endblock %}
+    <div class="wrapper">
+        <div class="logo">&#60; nimAI &#62;</div>
+        <main class="content">
 
-    {% block body %}
-    {% endblock %}
-</div>
+            {% block body %}
+            {% endblock %}
+        </main>
+        <div id="particles-js"></div>
 
-    {% block scripts %}
-    {% endblock %}
+        {% block scripts %}
+        {% endblock %}
+    </div>
+    <script src="{{url_for('static', filename='js/particles.js')}}"></script>
 
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
 </body>
+
 </html>

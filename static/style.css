@@ -1,36 +1,274 @@
+body,
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-family: "Iceland", cursive;
+  line-height: 1.42;
+}
+canvas {
+  display: block;
+  vertical-align: bottom;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-color: #1c2a3a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#particles-js {
+  width: 100%;
+  height: 100%;
+  background-image: url("");
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+.logo {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #e9d05d;
+  font-size: 48px;
+}
+.content {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  flex-direction: column;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+.content__container {
+  padding: 40px;
+  border-radius: 10px;
+  background-color: #e9d05d;
+  text-align: center;
+  justify-content: center;
+}
+
+.content__btn {
+  padding: 15px 25px;
+  margin-top: 20px;
+  background-color: #f7b3af;
+  text-transform: uppercase;
+  box-shadow: 0px 6px 0px 0px #9d6966, 0px 5px 12px 0px rgba(0, 0, 0, 0.6),
+    inset 0px 0px 10px -5px #1c2a3a;
+  transition: all 100ms linear;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+}
+.content__btn:hover {
+  top: 3px;
+  left: -3px;
+  box-shadow: 0px 2px 0px 0px #9d6966, 0px 5px 5px 0px rgba(0, 0, 0, 0.6),
+    inset 0px 0px 10px -5px #1c2a3a;
+}
+.controls-btn {
+  padding: 15px 25px;
+  margin-top: 20px;
+  background-color: #abbec3;
+  text-transform: uppercase;
+  box-shadow: 0px 6px 0px 0px #abbec3, 0px 5px 12px 0px rgba(0, 0, 0, 0.6),
+    inset 0px 0px 10px -5px #1c2a3a;
+  transition: all 100ms linear;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  height: 80px;
+  width: 110px;
+}
+.controls-btn:hover {
+  top: 3px;
+  left: -3px;
+  box-shadow: 0px 2px 0px 0px #9d6966, 0px 5px 5px 0px rgba(0, 0, 0, 0.6),
+    inset 0px 0px 10px -5px #1c2a3a;
+}
+.make-move-form {
+  display: flex;
+  align-items: center;
+}
+
 .coin {
-    width: 60px;
+  width: 60px;
+}
+/* animate coins */
+.bounce-in-top {
+  -webkit-animation: bounce-in-top 1.1s both;
+  animation: bounce-in-top 1.1s both;
+}
+.bounce-in-top:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.bounce-in-top:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.bounce-in-top:nth-child(4) {
+  animation-delay: 0.75s;
+}
+.bounce-in-top:nth-child(5) {
+  animation-delay: 1.25s;
+}
+.bounce-in-top:nth-child(6) {
+  animation-delay: 1.5s;
+}
+.bounce-in-top:nth-child(7) {
+  animation-delay: 1.75s;
+}
+.bounce-in-top:nth-child(8) {
+  animation-delay: 2s;
+}
+/**
+ * ----------------------------------------
+ * animation bounce-in-top
+ * ----------------------------------------
+ */
+@-webkit-keyframes bounce-in-top {
+  0% {
+    -webkit-transform: translateY(-500px);
+    transform: translateY(-500px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  38% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    -webkit-transform: translateY(-65px);
+    transform: translateY(-65px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  72% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  81% {
+    -webkit-transform: translateY(-28px);
+    transform: translateY(-28px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  90% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  95% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+@keyframes bounce-in-top {
+  0% {
+    -webkit-transform: translateY(-500px);
+    transform: translateY(-500px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  38% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    -webkit-transform: translateY(-65px);
+    transform: translateY(-65px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  72% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  81% {
+    -webkit-transform: translateY(-28px);
+    transform: translateY(-28px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  90% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  95% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
 }
 
-.jumbotron {
-    width: 60%;
-    padding: 20px
+.ai-ops {
+  width: 80%;
 }
 
-.ai-ops{
-    width: 80%
-}
-
-.form-control{
-    width: 30%;
+.form-control {
+  width: 30%;
 }
 
 .outcome-alert {
-    width: 30%;
+  width: 30%;
 }
 
 #board {
-    min-height: 250px;
+  min-height: 250px;
 }
 
 #thinking {
-    height: 200px;
+  height: 200px;
 }
 
 #submit-btn {
-    display: inline-block;
+  display: inline-block;
 }
 
 #set-amount {
-    display: inline-block;
+  display: inline-block;
 }

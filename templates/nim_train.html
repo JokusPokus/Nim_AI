@@ -1,18 +1,28 @@
 {% extends "layout.html" %}
 
-{% block heading %}
-    <h3>How many rounds should the AI be trained?</h3>
-{% endblock %}
 
 {% block body %}
-    <form method="POST" action="{{ url_for('nim') }}">
+<div class="content__container">
+    <h3>How many rounds should the AI be trained?</h3>
+
+    <form method="POST" id="train" action="{{ url_for('nim') }}">
 
         <div class="mt-4">
             <p>If you want to try out the game and be sure to win, select a number below 10.</p>
             <p>For a real challenge, you can go as far as 50000.</p>
         </div>
-        <input name="n_train" type="number" placeholder="Enter a number" class="form-control mt-4" min="1" max="50000" required>
-        <button class="btn btn-info my-4">Start Training!</button>
+        <div class="d-flex justify-content-center">
+            <input name="n_train" type="number" placeholder="Enter a number" class="form-control mt-4" min="1"
+                max="50000" required>
+        </div>
+
 
     </form>
+
+</div>
+<div class="content-controllers d-flex justify-content-center">
+    <button type="submit" form="train" class="content__btn">Start Training!</button>
+
+</div>
+
 {% endblock %}
