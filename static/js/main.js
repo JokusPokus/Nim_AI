@@ -110,17 +110,11 @@ particlesJS("particles-js", {
   retina_detect: true,
 });
 
-// window.addEventListener("load", () => {
-//   const preload = document.querySelector(".preload");
-//   preload.classList.add("preload-finish");
-// });
-
 function showDiv() {
   document.querySelector(".content__container").style.display = "none";
   document.querySelector(".content__btn").style.display = "none";
   document.querySelector(".preload").style.display = "block";
   setTimeout(function () {
     document.querySelector(".preload").style.display = "none";
-    // document.getElementById("showme").style.display = "block";
   }, 10000);
 }
