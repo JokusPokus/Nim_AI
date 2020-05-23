@@ -62,9 +62,6 @@
             <p class="mx-3">How many coins would you like to remove?</p>
             <input name="amount" id="set-amount" type="number" min="1" max="7" required class="form-control">
         </form>
-        <form action="{{ url_for('nim_move') }}" id="reset" method="GET" class="mt-4">
-            <!-- <button type="submit" class="content__btn">Reset game</button> -->
-        </form>
         {% endif %}
     </div>
     <div class="controls">
@@ -72,9 +69,9 @@
             <button type="submit" class="controls-btn mr-3">Retrain</button>
         </a>
         <button form="makeMove" type="submit" id="submit-btn" class="content__btn">Make your move</button>
-        <button form="reset" type="reset" class="controls-btn ml-3">Reset</button>
-
-
+        <form action="{{ url_for('nim_move') }}" id="reset" method="GET" class="">
+            <button type="submit" class="controls-btn ml-3">Reset game</button>
+        </form>
     </div>
 </div>
 

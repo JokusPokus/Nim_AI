@@ -109,3 +109,12 @@ particlesJS("particles-js", {
   },
   retina_detect: true,
 });
+
+function showDiv() {
+  document.querySelector(".content__container").style.display = "none";
+  document.querySelector(".content__btn").style.display = "none";
+  document.querySelector(".preload").style.display = "block";
+  setTimeout(function () {
+    document.querySelector(".preload").style.display = "none";
+  }, 10000);
+}

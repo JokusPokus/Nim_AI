@@ -21,8 +21,13 @@
 
 </div>
 <div class="content-controllers d-flex justify-content-center">
-    <button type="submit" form="train" class="content__btn">Start Training!</button>
+    <button type="submit" form="train" class="content__btn" id="train-btn" onclick="showDiv()">Start Training!</button>
 
+</div>
+<div class="preload">
+    <img class="brain" src="{{url_for('static', filename='img/brain.png')}}">
+    <span class="preload__text ml-3">Training</span>
+    <span class="dots preload__text">...</span>
 </div>
 
 {% endblock %}
