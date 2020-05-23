@@ -46,3 +46,11 @@ def nim_move():
         ngp.ai_move(session)
 
     return render_template("nim_board.html", winner=session["winner"], new_board=session["current_board"])
+
+
+@app.route("/reset", methods=["GET"])
+def reset():
+    ngp.reset_board(session, board=INITIAL_BOARD.copy())
+    return render_template("nim.html",
+                           new_board=session["current_board"],
+                           winner=session["winner"])

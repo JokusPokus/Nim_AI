@@ -69,7 +69,7 @@
             <button type="submit" class="controls-btn mr-3">Retrain</button>
         </a>
         <button form="makeMove" type="submit" id="submit-btn" class="content__btn">Make your move</button>
-        <form action="{{ url_for('nim_move') }}" id="reset" method="GET" class="">
+        <form action="{{ url_for('reset') }}" id="reset" method="GET" class="">
             <button type="submit" class="controls-btn ml-3">Reset game</button>
         </form>
     </div>
@@ -107,22 +107,6 @@
                     })
                 }, 2000)
             },
-        });
-    });
-
-    $("#reset").submit(function (e) {
-
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        const form = $(this);
-        const url = form.attr('action');
-
-        $.ajax(url, {
-            method: "GET",
-            data: "status=reset",
-            success: function (response) {
-                $("#board").html($('#board', response).html());
-            }
         });
     });
 </script>
