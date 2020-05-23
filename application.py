@@ -32,10 +32,6 @@ def nim():
 
 @app.route("/nim_move", methods=["GET"])
 def nim_move():
-    # When resetting game
-    if request.args.get("status") == "reset":
-        ngp.reset_board(session, board=INITIAL_BOARD.copy())
-
     # When player makes a move
     if request.args.get("pile"):
         ngp.player_move(session, pile=request.args.get("pile"), amount=request.args.get("amount"))

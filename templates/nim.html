@@ -28,19 +28,6 @@
         {% endif %}
     </div>
     {% endfor %}
-
-    {% elif winner == "Human" %}
-    <img src="https://media1.tenor.com/images/3f323460a03b2ca804a4558e95a86c01/tenor.gif?itemid=11753535">
-    <div class="alert alert-success mt-3 outcome-alert" role="alert">
-        Congrats, you won!!
-    </div>
-
-    {% else %}
-    <img src="https://i.imgur.com/57QHRtf.gif" alt="Robot smiling">
-    <div class="alert alert-danger mt-3 outcome-alert" role="alert">
-        Oh no, you lost!!
-    </div>
-
     {% endif %}
 </div>
 
@@ -93,7 +80,7 @@
             data: form.serialize(), // serializes the form's elements
             success: function (response) {
                 $("#board").html($('#board', response).html());
-                $("#message").html("<div class='alert alert-info' role='alert'>Analyzing the board...</div><img id='thinking' src='https://media.giphy.com/media/SabSYEpsVh0di/giphy.gif'>");
+                $("#message").html("<div class='alert alert-info' role='alert'>Analyzing the board...</div>");
                 window.setTimeout(function () {
                     $.ajax({
                         url: url,
