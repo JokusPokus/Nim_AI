@@ -6,30 +6,22 @@
 
 {% block body %}
 
-<div id="board" class="mb-5 mx-3">
+<ul id="board" class="mb-5 mx-3 board-list">
 
     {% if not winner %}
     {% for i in range(new_board|length) %}
     <div class="row mb-3">
-        <div>
-            {{ i + 1 }}
-        </div>
-        {% if new_board[i] == 0 %}
-        <div class="bounce-in-top">
-            <img class="coin " src="https://i.pinimg.com/originals/48/3f/b5/483fb5b680d22f94f90f89f4bace432b.gif">
-        </div>
-        {% else %}
         {% for j in range(new_board[i]) %}
-        <div class="bounce-in-top">
-            <img class="coin "
-                src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png">
-        </div>
+        <li class="bounce-in-top board-list__item">
+            <input type="checkbox" id="coin{{i}}{{j}}" />
+            <label for="coin{{i}}{{j}}"><img class="board-list__img"
+                    src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
+        </li>
         {% endfor %}
-        {% endif %}
     </div>
     {% endfor %}
     {% endif %}
-</div>
+</ul>
 
 <div class="ai-ops content__container">
     <div class="col-6">
