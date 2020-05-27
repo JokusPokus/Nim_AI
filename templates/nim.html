@@ -5,23 +5,23 @@
 {% endblock %}
 
 {% block body %}
-
-<ul id="board" class="mb-5 mx-3 board-list">
-
-    {% if not winner %}
-    {% for i in range(new_board|length) %}
-    <div class="row mb-3">
-        {% for j in range(new_board[i]) %}
-        <li class="bounce-in-top board-list__item">
-            <input type="checkbox" id="coin{{i}}{{j}}" />
-            <label for="coin{{i}}{{j}}"><img class="board-list__img"
-                    src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
-        </li>
+<form action="{{ url_for('nim_move') }}" id="makeMove" method="POST" class="make-move-form">
+    <ul id="board" class="mb-5 mx-3 board-list">
+        {% if not winner %}
+        {% for i in range(new_board|length) %}
+        <div class="row mb-3">
+            {% for j in range(new_board[i]) %}
+            <li class="bounce-in-top board-list__item">
+                <input type="checkbox" id="coin{{i}}{{j}}" name="choice" />
+                <label for="coin{{i}}{{j}}"><img class="board-list__img"
+                        src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
+            </li>
+            {% endfor %}
+        </div>
         {% endfor %}
-    </div>
-    {% endfor %}
-    {% endif %}
-</ul>
+        {% endif %}
+    </ul>
+</form>
 
 <div class="ai-ops content__container">
     <div class="col-6">
@@ -35,12 +35,12 @@
     </div>
     <div class="">
         {% if not winner %}
-        <form action="{{ url_for('nim_move') }}" id="makeMove" method="POST" class="make-move-form">
+        <!-- <form action="{{ url_for('nim_move') }}" id="makeMove" method="POST" class="make-move-form">
             <p class="mr-3">From which pile would you like to remove coins?</p>
             <input name="pile" type="number" min="1" max="4" required class="form-control">
             <p class="mx-3">How many coins would you like to remove?</p>
             <input name="amount" id="set-amount" type="number" min="1" max="7" required class="form-control">
-        </form>
+        </form> -->
         {% endif %}
     </div>
     <div class="controls">

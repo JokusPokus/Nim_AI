@@ -1,38 +1,31 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div id="board" class="mb-5 mx-3">
+<ul id="board" class="mb-5 mx-3">
 
     {% if not winner %}
-        {% for i in range(new_board|length) %}
-            <div class="row mb-3">
-                <div>
-                    {{ i + 1 }}
-                </div>
-                {% if new_board[i] == 0 %}
-                    <div>
-                        <img class="coin" src="https://i.pinimg.com/originals/48/3f/b5/483fb5b680d22f94f90f89f4bace432b.gif">
-                    </div>
-                {% else %}
-                    {% for j in range(new_board[i]) %}
-                        <div>
-                            <img class="coin" src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png">
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
+    {% for i in range(new_board|length) %}
+    <div class="row mb-3">
+        {% for j in range(new_board[i]) %}
+        <li class=" board-list__item">
+            <input type="checkbox" id="coin{{i}}{{j}}" name="choice" />
+            <label for="coin{{i}}{{j}}"><img class="board-list__img"
+                    src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
+        </li>
         {% endfor %}
+    </div>
+    {% endfor %}
 
     {% elif winner == "Human" %}
-        <div class="alert alert-success mt-3 outcome-alert" role="alert">
-            Congrats, you won!!
-        </div>
+    <div class="alert alert-success mt-3 outcome-alert" role="alert">
+        Congrats, you won!!
+    </div>
 
     {% else %}
-        <div class="alert alert-danger mt-3 outcome-alert" role="alert">
-            Oh no, you lost!!
-        </div>
+    <div class="alert alert-danger mt-3 outcome-alert" role="alert">
+        Oh no, you lost!!
+    </div>
 
     {% endif %}
-    </div>
+</ul>
 {% endblock %}

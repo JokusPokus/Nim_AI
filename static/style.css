@@ -161,15 +161,14 @@ input[type="checkbox"][id^="coin"] {
   display: none;
 }
 
-label {
-  /* border: 1px solid #fff; */
+.board-list__item label {
   display: block;
   position: relative;
   margin: 10px;
   cursor: pointer;
 }
 
-label:before {
+.board-list__item label:before {
   background-color: white;
   color: white;
   content: " ";
@@ -194,17 +193,13 @@ label:before {
   transform-origin: 50% 50%;
 }
 
-:checked + label {
-  /* border-color: #ddd; */
-}
-
 :checked + label:before {
   content: "✓";
   background-color: grey;
   transform: scale(1);
 }
 
-:checked + label img {
+:checked + label .board-list__img {
   transform: scale(0.9);
   z-index: -1;
   opacity: 0.6;
