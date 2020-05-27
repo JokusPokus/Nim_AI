@@ -118,3 +118,13 @@ function showDiv() {
     document.querySelector(".preload").style.display = "none";
   }, 10000);
 }
+
+function checkCoins() {
+  const rowElements = document.querySelectorAll(".board-list__row");
+  let chosenRow = document.querySelector(".board-list__check:checked");
+  // console.log(chosenRow);
+  rowElements.forEach((row) => {
+    // console.log(row);
+  });
+}
+checkCoins();

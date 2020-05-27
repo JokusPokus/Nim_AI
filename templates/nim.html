@@ -9,10 +9,11 @@
     <ul id="board" class="mb-5 mx-3 board-list">
         {% if not winner %}
         {% for i in range(new_board|length) %}
-        <div class="row mb-3">
+        <div class="row mb-3 board-list__row">
             {% for j in range(new_board[i]) %}
             <li class="bounce-in-top board-list__item">
-                <input type="checkbox" id="coin{{i}}{{j}}" name="choice" />
+                <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="choice" value="{{i}}{{j}}"
+                    onclick="checkCoins()" />
                 <label for="coin{{i}}{{j}}"><img class="board-list__img"
                         src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
             </li>
