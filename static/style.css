@@ -204,7 +204,35 @@ input[type="checkbox"][id^="coin"] {
   z-index: -1;
   opacity: 0.6;
 }
-
+/* alert */
+.screen-alert {
+  background-color: transparent;
+  border-radius: 2px;
+  border: 1rem solid;
+  border-bottom-color: #121212;
+  border-left-color: #080808;
+  border-right-color: #080808;
+  border-top-color: #020202;
+  box-shadow: inset 0 0 18rem black, inset 0 0 3rem black, 0 0 10rem black;
+  pointer-events: none;
+}
+.screen-alert #message {
+  background-color: #031e11;
+  text-shadow: 0rem 0.2rem 1rem #0c7b46;
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  padding: 10px;
+  color: yellow;
+}
+.screen-alert #message {
+  background-color: #031e11;
+  text-shadow: 0rem 0.2rem 1rem #0c7b46;
+}
+.screen-alert__win {
+}
+.screen-alert__lose {
+  color: red;
+}
 /* animate coins */
 .bounce-in-top {
   -webkit-animation: bounce-in-top 1.1s both;

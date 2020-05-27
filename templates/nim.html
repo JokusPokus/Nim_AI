@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-<form action="{{ url_for('nim_move') }}" id="makeMove" method="POST" class="make-move-form">
+<form action="{{ url_for('nim_move') }}" id="makeMove" method="POST" class="make-move-form ">
     <ul id="board" class="mb-5 mx-3 board-list">
         {% if not winner %}
         {% for i in range(new_board|length) %}
@@ -24,10 +24,10 @@
 </form>
 
 <div class="ai-ops content__container">
-    <div class="col-6">
+    <div class="screen-alert">
         {% if not winner %}
         <div id="message">
-            <div class="alert alert-info" role="alert">
+            <div class="" role="alert">
                 Please make a move!
             </div>
         </div>
@@ -72,7 +72,7 @@
             data: form.serialize(), // serializes the form's elements
             success: function (response) {
                 $("#board").html($('#board', response).html());
-                $("#message").html("<div class='alert alert-info' role='alert'>Analyzing the board...</div>");
+                $("#message").html("<div class='' role='alert'>Analyzing the board...</div>");
                 window.setTimeout(function () {
                     $.ajax({
                         url: url,
@@ -81,7 +81,7 @@
                         data: "status=ai_move",
                         success: function (ai_response) {
                             $("#board").html($('#board', ai_response).html());
-                            $("#message").html("<div class='alert alert-info' role='alert'>AI made a move. Your turn!</div>")
+                            $("#message").html("<div class='' role='alert'>AI made a move. Your turn!</div>")
                         }
                     })
                 }, 2000)
