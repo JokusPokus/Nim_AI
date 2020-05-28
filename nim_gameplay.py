@@ -28,7 +28,7 @@ def player_move(session, pile, amount):
 
     # Take chosen amount of objects from the pile
     # (but don't allow negative amounts)
-    session["current_board"][pile - 1] -= min(amount, session["current_board"][pile - 1])
+    session["current_board"][pile] -= amount
 
 
 def ai_move(session):

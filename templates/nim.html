@@ -7,12 +7,11 @@
 {% block body %}
 <form action="{{ url_for('nim_move') }}" id="makeMove" method="POST" class="make-move-form ">
     <ul id="board" class="mb-5 mx-3 board-list">
-        {% if not winner %}
         {% for i in range(new_board|length) %}
         <div class="row mb-3 board-list__row">
             {% for j in range(new_board[i]) %}
             <li class="bounce-in-top board-list__item">
-                <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="choice" value="{{i}}{{j}}"
+                <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="row_{{i}}" value="Clicked"
                     onclick="checkCoins()" />
                 <label for="coin{{i}}{{j}}"><img class="board-list__img"
                         src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
@@ -20,30 +19,18 @@
             {% endfor %}
         </div>
         {% endfor %}
-        {% endif %}
     </ul>
 </form>
 
 <div class="ai-ops content__container">
     <div class="screen-alert">
-        {% if not winner %}
         <div id="message">
             <div class="" role="alert">
                 Please make a move!
             </div>
         </div>
-        {% endif %}
     </div>
-    <div class="">
-        {% if not winner %}
-        <!-- <form action="{{ url_for('nim_move') }}" id="makeMove" method="POST" class="make-move-form">
-            <p class="mr-3">From which pile would you like to remove coins?</p>
-            <input name="pile" type="number" min="1" max="4" required class="form-control">
-            <p class="mx-3">How many coins would you like to remove?</p>
-            <input name="amount" id="set-amount" type="number" min="1" max="7" required class="form-control">
-        </form> -->
-        {% endif %}
-    </div>
+
     <div class="controls">
         <a href="{{ url_for('nim_train') }}">
             <button type="submit" class="controls-btn mr-3">Retrain</button>
@@ -68,7 +55,7 @@
 
         $.ajax({
             url: url,
-            method: "GET",
+            method: "POST",
             async: false,
             data: form.serialize(), // serializes the form's elements
             success: function (response) {
