@@ -118,13 +118,59 @@ function showDiv() {
     document.querySelector(".preload").style.display = "none";
   }, 10000);
 }
-
-function checkCoins() {
-  const rowElements = document.querySelectorAll(".board-list__row");
-  let chosenRow = document.querySelector(".board-list__check:checked");
-  // console.log(chosenRow);
-  rowElements.forEach((row) => {
-    // console.log(row);
+//toggle class checked for li element
+function toggleChecked() {
+  let arrayItems = document.querySelectorAll(".board-list__check");
+  arrayItems.forEach((item) => {
+    item.addEventListener("click", function (e) {
+      e.target.parentNode.classList.toggle("checked");
+    });
   });
 }
-checkCoins();
+
+//on every click loop trough 4 rows and check if any row's child has class checked
+
+$(document).on("click", function () {
+  $(".board-list__row").each(function () {
+    // check id of row when class active in any child
+    $(this)
+      .find("li")
+      .each(function () {
+        if ($(this).hasClass("checked")) {
+          console.log($(this).parent().attr("id"));
+        } else {
+          // console.log("false");
+        }
+      });
+  });
+});
+
+toggleChecked();
+
+//choose the number of training rounds
+const numberOfRounds = document.querySelector('input[type="range"]');
+let newLevelValue;
+const rangeValue = function () {
+  let newValue = numberOfRounds.value;
+  let target = document.querySelector(".value");
+  target.innerHTML = newValue;
+  let level = document.querySelector(".level");
+
+  if (newValue <= 10000) {
+    newLevelValue = "EASY PEASY";
+    level.classList.remove("hard");
+    level.classList.remove("normal");
+  } else if (newValue <= 30000) {
+    newLevelValue = "NORMAL";
+    level.classList.remove("hard");
+    level.classList.add("normal");
+  } else {
+    newLevelValue = "PREPARE TO CRY";
+    level.classList.remove("normal");
+    level.classList.add("hard");
+  }
+  level.innerHTML = newLevelValue;
+  return newLevelValue;
+};
+
+numberOfRounds.addEventListener("input", rangeValue);

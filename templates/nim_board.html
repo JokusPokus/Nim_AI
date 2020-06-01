@@ -3,22 +3,23 @@
 {% block body %}
 <ul id="board" class="mb-5 mx-3 board-list">
     {% if not winner %}
-        {% for i in range(new_board|length) %}
-        <div class="row mb-3 board-list__row">
-            {% if new_board[i] == 0 %}
-                <!--  Insert a placeholder so that the spacing isn't messed up in the case of empty lines -->
-            {% else %}
-                {% for j in range(new_board[i]) %}
-                <li class="board-list__item">
-                    <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="row_{{i}}" value="Clicked"
-                        onclick="checkCoins()" />
-                    <label for="coin{{i}}{{j}}"><img class="board-list__img"
-                            src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
-                </li>
-                {% endfor %}
-            {% endif %}
+    {% for i in range(new_board|length) %}
+    <div class="row mb-3 board-list__row" id="row_{{i}}">
+        {% if new_board[i] == 0 %}
+        <div>
+            <img class="board-list__img">
         </div>
+        {% else %}
+        {% for j in range(new_board[i]) %}
+        <li class="board-list__item" onclick="toggleCheckbox()">
+            <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="row_{{i}}" value="Clicked" />
+            <label for="coin{{i}}{{j}}"><img class="board-list__img"
+                    src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
+        </li>
         {% endfor %}
+        {% endif %}
+    </div>
+    {% endfor %}
     {% endif %}
 </ul>
 {% endblock %}

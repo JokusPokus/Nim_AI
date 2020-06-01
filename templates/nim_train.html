@@ -11,9 +11,12 @@
             <p>If you want to try out the game and be sure to win, select a number below 10.</p>
             <p>For a real challenge, you can go as far as 50000.</p>
         </div>
-        <div class="d-flex justify-content-center">
-            <input name="n_train" type="number" placeholder="Enter a number" class="form-control mt-4" min="1"
-                max="50000" required>
+        <div class="d-flex justify-content-center flex-column">
+            <div class="value">0</div>
+            <input name="n_train" type="range" placeholder="Enter a number" class="form-control mt-4" min="1"
+                max="50000" required value=0>
+            <div class="level">EASY PEASY</div>
+
         </div>
 
 
