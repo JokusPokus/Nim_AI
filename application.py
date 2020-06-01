@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, session, make_response
 from flask_session import Session
 import nim_gameplay as ngp
+import time
 
 app = Flask(__name__)
 
@@ -24,7 +25,9 @@ def nim_train():
 @app.route("/nim", methods=["POST"])
 def nim():
     # When training is requested (via POST request)
-    ngp.train_and_initialize(session, request.form.get("n_train"), board=INITIAL_BOARD.copy())
+    ngp.train_and_initialize(session, request.form.get(
+        "n_train"), board=INITIAL_BOARD.copy())
+    time.sleep(3)
     return render_template("nim.html",
                            new_board=session["current_board"],
                            winner=session["winner"])
@@ -48,7 +51,6 @@ def nim_move():
                 amount = len(request.form.getlist(f"row_{i}"))
                 print(pile, amount)
                 ngp.player_move(session, pile, amount)
-
     return render_template("nim_board.html", winner=session["winner"], new_board=session["current_board"])
 
 
