@@ -54,6 +54,7 @@ a:hover {
   flex-direction: column;
   margin-top: 60px;
   align-items: center;
+  margin-bottom: 20px;
 }
 .content__container {
   padding: 40px;
@@ -169,12 +170,13 @@ input[type="checkbox"][id^="coin"] {
 .board-list__item label {
   display: block;
   position: relative;
-  /* margin: 10px; */
+  margin: 3px;
   cursor: pointer;
 }
-input[type="checkbox"]:disabled + label {
-  /* display: none;
-  pointer-events: none; */
+@media screen and (min-width: 1200px) {
+  .board-list__item label {
+    margin: 10px;
+  }
 }
 
 .board-list__item label:before {
@@ -200,13 +202,8 @@ input[type="checkbox"]:disabled + label {
   width: 60px;
   transition-duration: 0.2s;
   transform-origin: 50% 50%;
-  margin: 3px;
 }
-@media screen and (min-width: 1200px) {
-  .board-list__img {
-    margin: 10px;
-  }
-}
+
 .board-list__placeholder {
   width: 60px;
 }
@@ -246,9 +243,14 @@ input[type="checkbox"]:disabled + label {
   text-shadow: 0rem 0.2rem 1rem #0c7b46;
 }
 .screen-alert__win {
+  color: hotpink;
+  font-size: 50px;
+  font-weight: bold;
 }
 .screen-alert__lose {
   color: red;
+  font-size: 50px;
+  font-weight: bold;
 }
 /* animate coins */
 .bounce-in-top {
@@ -300,7 +302,8 @@ input[type="range"] {
   height: 5px;
   border-radius: 5px;
   margin: 0 auto;
-  outline: 0;
+  outline: none;
+  padding: 4px 0;
 }
 .normal {
   color: darkgreen;

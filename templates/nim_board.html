@@ -20,6 +20,15 @@
         {% endif %}
     </div>
     {% endfor %}
+    {% elif winner == "Human" %}
+    <div class="screen-alert__win  bounce-in-top" role="alert">
+        Congrats, you won!!
+    </div>
+
+    {% else %}
+    <div class="screen-alert__lose bounce-in-top" role="alert">
+        Oh no, you lost!!
+    </div>
     {% endif %}
 </ul>
 {% endblock %}
