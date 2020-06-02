@@ -56,13 +56,15 @@
         // Player Move --> Let the selected coins disappear
         $("#board li:has(input:checked)").hide();
 
-        const remainingCoins = $("#board input:not(:checked)").length;
+        const remainingCoins = $("#board li:visible").length;
 
         if (remainingCoins == 0) {
             // Make losing animation visible
-
+            $("#message").html("<div class='' role='alert'>You lost!</div>")
         } else {
             // Human has not lost --> AI move is required.
+            $("#message").html("<div class='' role='alert'>AI is analyzing the board...</div>")
+
             const form = $(this);
             const url = form.attr("action");
 
@@ -73,35 +75,28 @@
                 data: form.serialize(), // serializes the form's elements
                 dataType: "json",
                 success: function (ai_response) {
+                    // Uncheck the now hidden coins
+                    $("#board li:hidden input").prop("checked", false);
+
                     window.setTimeout(function () {
+                        // Implement AI move
+                        const ai_pile = ai_response["pile"];
+                        const ai_amount = ai_response["amount"];
+                        const rowName = "row_".concat(ai_pile.toString());
+                        for (i = 0; i < ai_amount; i++) {
+                            $("#board li:visible:has(input[name=" + rowName + "])").last().hide();
+                        };
                         if (ai_response["winner"] === "Human") {
                             // Make winning animation visible
-
+                            $("#message").html("<div class='' role='alert'>Congrats, you won!</div>")
                         } else {
-                            // Implement AI move
-                            const ai_pile = ai_response["pile"];
-                            const ai_amount = ai_response["amount"];
-                            const rowName = "row_".concat(ai_pile.toString());
-                            for (i = 0; i < ai_amount; i++) {
-                                $("#board li:visible:has(input[name=" + rowName + "])").last().hide();
-                            };
+                            $("#message").html("<div class='' role='alert'>AI made a move. Your turn!</div>");
                         };
                     }, 2000);
                 }
             });
         };
     });
-
-
-
-    /*$("#makeMove").submit(function (e) {
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        const form = $(this);
-        const player_move_url = form.attr("action");
-
-
-    });*/
 </script>
 
 {% endblock %}

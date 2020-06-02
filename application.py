@@ -38,12 +38,12 @@ def ai_move():
     for i in range(len(session["current_board"])):
         # Form input will only be non-empty for the selected row
         if request.form.getlist(f"row_{i}"):
-            pile = i
-            amount = len(request.form.getlist(f"row_{i}"))
+            player_pile = i
+            player_amount = len(request.form.getlist(f"row_{i}"))
 
-    pile, amount = ngp.ai_move(session, pile, amount)
+    ai_pile, ai_amount = ngp.ai_move(session, player_pile, player_amount)
 
-    return jsonify(winner=session["winner"], pile=pile, amount=amount, row_end=session["current_board"][pile])
+    return jsonify(winner=session["winner"], pile=ai_pile, amount=ai_amount)
 
 
 @app.route("/reset", methods=["GET"])
