@@ -32,7 +32,6 @@ def nim():
 
 @app.route("/nim_move", methods=["GET", "POST"])
 def nim_move():
-    print("OOOKAY")
     # If AI move is requested and game still going: Calculate an AI move
     # If game over: Show result
     if request.args.get("status") == "ai_move":
@@ -42,11 +41,9 @@ def nim_move():
     else:
         for i in range(len(session["current_board"])):
             # Form input will only be non-empty for the selected row
-            print(request.form.getlist(f"row_{i}"))
             if request.form.getlist(f"row_{i}"):
                 pile = i
                 amount = len(request.form.getlist(f"row_{i}"))
-                print(pile, amount)
                 ngp.player_move(session, pile, amount)
 
     return render_template("nim_board.html", winner=session["winner"], new_board=session["current_board"])
