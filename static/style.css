@@ -205,7 +205,7 @@ input[type="checkbox"][id^="coin"] {
 }
 
 .board-list__placeholder {
-  width: 60px;
+  width: 80px;
 }
 
 :checked + label:before {

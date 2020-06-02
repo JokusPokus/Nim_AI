@@ -118,6 +118,7 @@ function showPreloader() {
     document.querySelector(".preload").style.display = "none";
   }, 10000);
 }
+
 //toggle class checked for li element
 function toggleChecked() {
   let arrayItems = document.querySelectorAll(".board-list__check");

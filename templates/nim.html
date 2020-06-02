@@ -6,16 +6,10 @@
 
 {% block body %}
 <div class="board-level"></div>
-<form action="{{ url_for('nim_move') }}" id="makeMove" method="POST" class="make-move-form ">
-    {% if not winner %}
+<form action="{{ url_for('ai_move') }}" id="makeMove" method="POST" class="make-move-form ">
     <ul id="board" class="mb-5 mx-3 board-list">
         {% for i in range(new_board|length) %}
         <div class="row mb-3 board-list__row" id="row_{{i}}">
-            {% if new_board[i] == 0 %}
-            <div>
-                <img class="board-list__img">
-            </div>
-            {% else %}
             {% for j in range(new_board[i]) %}
             <li class="bounce-in-top board-list__item">
                 <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="row_{{i}}" value="Clicked" />
@@ -23,11 +17,8 @@
                         src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
             </li>
             {% endfor %}
-            {% endif %}
         </div>
         {% endfor %}
-        {% endif %}
-
     </ul>
 </form>
 
@@ -58,35 +49,59 @@
 {% block scripts %}
 
 <script>
-    $("#makeMove").submit(function (e) {
+    $("#makeMove").submit(function(event) {
+
+        event.preventDefault(); // avoid to execute the actual submit of the form.
+
+        // Player Move --> Let the selected coins disappear
+        $("#board li:has(input:checked)").hide();
+
+        const remainingCoins = $("#board input:not(:checked)").length;
+
+        if (remainingCoins == 0) {
+            // Make losing animation visible
+
+        } else {
+            // Human has not lost --> AI move is required.
+            const form = $(this);
+            const url = form.attr("action");
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                async: false,
+                data: form.serialize(), // serializes the form's elements
+                dataType: "json",
+                success: function (ai_response) {
+                    window.setTimeout(function () {
+                        if (ai_response["winner"] === "Human") {
+                            // Make winning animation visible
+
+                        } else {
+                            // Implement AI move
+                            const ai_pile = ai_response["pile"];
+                            const ai_amount = ai_response["amount"];
+                            const rowName = "row_".concat(ai_pile.toString());
+                            for (i = 0; i < ai_amount; i++) {
+                                $("#board li:visible:has(input[name=" + rowName + "])").last().hide();
+                            };
+                        };
+                    }, 2000);
+                }
+            });
+        };
+    });
+
+
+
+    /*$("#makeMove").submit(function (e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         const form = $(this);
-        const url = form.attr('action');
+        const player_move_url = form.attr("action");
 
-        $.ajax({
-            url: url,
-            method: "POST",
-            async: false,
-            data: form.serialize(), // serializes the form's elements
-            success: function (response) {
-                $("#board").html($('#board', response).html());
-                $("#message").html("<div class='' role='alert'>Analyzing the board...</div>");
-                window.setTimeout(function () {
-                    $.ajax({
-                        url: url,
-                        method: "GET",
-                        async: false,
-                        data: "status=ai_move",
-                        success: function (ai_response) {
-                            $("#board").html($('#board', ai_response).html());
-                            $("#message").html("<div class='' role='alert'>AI made a move. Your turn!</div>")
-                        }
-                    })
-                }, 2000)
-            },
-        });
-    });
+
+    });*/
 </script>
 
 {% endblock %}
