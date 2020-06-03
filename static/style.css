@@ -173,6 +173,11 @@ input[type="checkbox"][id^="coin"] {
   margin: 3px;
   cursor: pointer;
 }
+.form-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 @media screen and (min-width: 1200px) {
   .board-list__item label {
     margin: 10px;
@@ -218,6 +223,17 @@ input[type="checkbox"][id^="coin"] {
   transform: scale(0.9);
   z-index: -1;
   opacity: 0.6;
+}
+.row__placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px dashed #fff;
+  background-color: #fff;
+  opacity: 0.2;
+}
+.hidden {
+  visibility: hidden;
 }
 /* alert */
 .screen-alert {
@@ -317,8 +333,9 @@ input[type="range"] {
 .level5 {
   color: red;
 }
-.train-slider {
-
+.fade-out {
+  -webkit-animation: fade-out 1s ease-out both;
+  animation: fade-out 1s ease-out both;
 }
 /**
  * ----------------------------------------
@@ -456,4 +473,26 @@ input[type="range"] {
 
 #set-amount {
   display: inline-block;
+}
+
+/**
+ * ----------------------------------------
+ * animation fade-out
+ * ----------------------------------------
+ */
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

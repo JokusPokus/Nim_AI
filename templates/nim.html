@@ -5,22 +5,27 @@
 {% endblock %}
 
 {% block body %}
-<div class="board-level"></div>
-<form action="{{ url_for('ai_move') }}" id="makeMove" method="POST" class="make-move-form ">
-    <ul id="board" class="mb-5 mx-3 board-list">
-        {% for i in range(new_board|length) %}
-        <div class="row mb-3 board-list__row" id="row_{{i}}">
-            {% for j in range(new_board[i]) %}
-            <li class="bounce-in-top board-list__item">
-                <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="row_{{i}}" value="Clicked" />
-                <label for="coin{{i}}{{j}}"><img class="board-list__img"
-                        src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
-            </li>
+<!-- <div class="board-level row__placeholder"></div> -->
+<div class="form-wrapper">
+    <form action="{{ url_for('ai_move') }}" id="makeMove" method="POST" class="make-move-form">
+        <ul id="board" class="mb-5 mx-3 board-list">
+            {% for i in range(new_board|length) %}
+            <div class="row mb-3 board-list__row" id="row_{{i}}">
+                {% for j in range(new_board[i]) %}
+                <li class="bounce-in-top board-list__item">
+                    <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="row_{{i}}"
+                        value="Clicked" />
+                    <label for="coin{{i}}{{j}}"><img class="board-list__img "
+                            src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
+                </li>
+                {% endfor %}
+            </div>
             {% endfor %}
-        </div>
-        {% endfor %}
-    </ul>
-</form>
+
+        </ul>
+    </form>
+</div>
+
 
 
 
@@ -51,12 +56,12 @@
 {% block scripts %}
 
 <script>
-    $("#makeMove").submit(function(event) {
+    $("#makeMove").submit(function (event) {
 
         event.preventDefault(); // avoid to execute the actual submit of the form.
 
         // Player Move --> Let the selected coins disappear
-        $("#board li:has(input:checked)").hide();
+        $("#board li:has(input:checked)").css("visibility", "hidden");
 
         const remainingCoins = $("#board li:visible").length;
 
@@ -80,13 +85,19 @@
                     // Uncheck the now hidden coins
                     $("#board li:hidden input").prop("checked", false);
 
+                    //Leave it for now TODO to wrap in div
+                    $("#board li").each(function () {
+                        if ($(this).css("visibility") === "hidden") {
+                            $(this).find("label").addClass('row__placeholder')
+                        }
+                    })
                     window.setTimeout(function () {
                         // Implement AI move
                         const ai_pile = ai_response["pile"];
                         const ai_amount = ai_response["amount"];
                         const rowName = "row_".concat(ai_pile.toString());
                         for (i = 0; i < ai_amount; i++) {
-                            $("#board li:visible:has(input[name=" + rowName + "])").last().hide();
+                            $("#board li:visible:has(input[name=" + rowName + "])").last().css("visibility", "hidden");;
                         };
                         if (ai_response["winner"] === "Human") {
                             // Make winning animation visible
