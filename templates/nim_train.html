@@ -3,17 +3,20 @@
 
 {% block body %}
 <div class="content__container">
-    <h3>How many rounds should the AI be trained?</h3>
+    <h3>Let the AI learn the game!</h3>
 
     <form method="POST" id="train" action="{{ url_for('nim') }}">
 
         <div class="mt-4">
-            <p>If you want to try out the game and be sure to win, select a number below 10.</p>
-            <p>For a real challenge, you can go as far as 50000.</p>
+            <p>Right now, the AI doesn't know anything about the game! To become a Nim master, it needs to
+                practice by playing against itself.</p>
+            <p>It's your lucky day... <strong>You</strong> decide how many rounds the agent is allowed to practice.
+                If you want to try out the game and be sure to win, select a number below 10.
+                For a real challenge, you can go as far as 1000.</p>
         </div>
         <div class="d-flex justify-content-center flex-column">
             <div class="value">1</div>
-            <input name="n_train" type="range" placeholder="Enter a number" class="mt-4" min="1" max="50000" required
+            <input name="n_train" type="range" placeholder="Enter a number" class="mt-4 train-slider" min="1" max="1000" required
                 value=0>
             <div class="level">EASY PEASY</div>
         </div>

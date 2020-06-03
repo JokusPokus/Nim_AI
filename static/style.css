@@ -305,11 +305,20 @@ input[type="range"] {
   outline: none;
   padding: 4px 0;
 }
-.normal {
+.level2 {
   color: darkgreen;
 }
-.hard {
+.level3 {
+  color: darkorange;
+}
+.level4 {
+  color: orangered;
+}
+.level5 {
   color: red;
+}
+.train-slider {
+
 }
 /**
  * ----------------------------------------

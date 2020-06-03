@@ -157,18 +157,36 @@ const rangeValue = function () {
   target.innerHTML = newValue;
   let level = document.querySelector(".level");
 
-  if (newValue <= 10000) {
+  if (newValue <= 20) {
     newLevelValue = "EASY PEASY";
-    level.classList.remove("hard");
-    level.classList.remove("normal");
-  } else if (newValue <= 30000) {
-    newLevelValue = "NORMAL";
-    level.classList.remove("hard");
-    level.classList.add("normal");
+    level.classList.remove("level2");
+    level.classList.remove("level3");
+    level.classList.remove("level4");
+    level.classList.remove("level5");
+  } else if (newValue <= 100) {
+    newLevelValue = "A LIL' CHALLENGE";
+    level.classList.remove("level3");
+    level.classList.remove("level4");
+    level.classList.remove("level5");
+    level.classList.add("level2");
+  } else if (newValue <= 200) {
+    newLevelValue = "KINDA HARD";
+    level.classList.remove("level2");
+    level.classList.remove("level4");
+    level.classList.remove("level5");
+    level.classList.add("level3");
+  } else if (newValue <= 500) {
+    newLevelValue = "REALLY HARD";
+    level.classList.remove("level2");
+    level.classList.remove("level3");
+    level.classList.remove("level5");
+    level.classList.add("level4");
   } else {
     newLevelValue = "PREPARE TO CRY";
-    level.classList.remove("normal");
-    level.classList.add("hard");
+    level.classList.remove("level2");
+    level.classList.remove("level3");
+    level.classList.remove("level4");
+    level.classList.add("level5");
   }
   level.innerHTML = newLevelValue;
   return newLevelValue;
