@@ -89,6 +89,8 @@
                     $("#board li").each(function () {
                         if ($(this).css("visibility") === "hidden") {
                             $(this).find("label").addClass('row__placeholder')
+                            $(this).animate({ opacity: 0.0 }, 2000);
+
                         }
                     })
                     window.setTimeout(function () {

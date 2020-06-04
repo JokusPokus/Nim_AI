@@ -1,4 +1,4 @@
-//congig paticle js library
+//config paticle js library
 particlesJS("particles-js", {
   particles: {
     number: {
@@ -109,7 +109,7 @@ particlesJS("particles-js", {
   },
   retina_detect: true,
 });
-
+/* Preloader function*/
 function showPreloader() {
   document.querySelector(".content__container").style.display = "none";
   document.querySelector(".content__btn").style.display = "none";
@@ -118,37 +118,25 @@ function showPreloader() {
     document.querySelector(".preload").style.display = "none";
   }, 10000);
 }
-
-//toggle class checked for li element
-function toggleChecked() {
-  let arrayItems = document.querySelectorAll(".board-list__check");
-  arrayItems.forEach((item) => {
-    item.addEventListener("click", function (e) {
-      e.target.parentNode.classList.toggle("checked");
+/* Validation of coins*/
+$(".board-list__item").each(function () {
+  $(this).on("click", function () {
+    let clickedID = $(this).parent().attr("id");
+    $(".board-list__item").each(function () {
+      //if input is checked
+      if (
+        $(this).parent().attr("id") !== clickedID &&
+        $("#board li:has(input:checked)").length !== 0
+      ) {
+        $(this).parent().css("opacity", "0.2");
+      } else {
+        $(this).parent().css("opacity", "1");
+      }
     });
-  });
-}
-
-//on every click loop trough 4 rows and check if any row's child has class checked
-
-$(document).on("click", function () {
-  $(".board-list__row").each(function () {
-    // check id of row when class active in any child
-    $(this)
-      .find("li")
-      .each(function () {
-        if ($(this).hasClass("checked")) {
-          console.log($(this).parent().attr("id"));
-        } else {
-          // console.log("false");
-        }
-      });
   });
 });
 
-toggleChecked();
-
-//choose the number of training rounds
+/* Number of rounds to train*/
 const numberOfRounds = document.querySelector('input[type="range"]');
 let newLevelValue;
 const rangeValue = function () {
