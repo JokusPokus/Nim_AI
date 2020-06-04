@@ -40,9 +40,9 @@ def ai_move():
         if request.form.getlist(f"row_{i}"):
             player_pile = i
             player_amount = len(request.form.getlist(f"row_{i}"))
-
+    print("Player move: " + str(player_pile) + " " + str(player_amount))
     ai_pile, ai_amount = ngp.ai_move(session, player_pile, player_amount)
-
+    print("MOVE: Pile " + str(ai_pile) + " Amount " + str(ai_amount))
     return jsonify(winner=session["winner"], pile=ai_pile, amount=ai_amount)
 
 

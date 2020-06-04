@@ -119,9 +119,9 @@ function showPreloader() {
   }, 10000);
 }
 /* Validation of coins*/
-$(".board-list__item").each(function () {
+$(".board-list__check").each(function () {
   $(this).on("click", function () {
-    let clickedID = $(this).parent().attr("id");
+    let clickedID = $(this).parents("div .row").attr("id");
     $(".board-list__item").each(function () {
       //if input is checked
       if (
@@ -181,5 +181,6 @@ const rangeValue = function () {
   level.innerHTML = newLevelValue;
   return newLevelValue;
 };
+
 
 numberOfRounds.addEventListener("input", rangeValue);
