@@ -19,36 +19,25 @@ def reset_board(session, board):
     session["winner"] = 0  # no winner yet
 
 
-def player_move(session, pile, amount):
+def ai_move(session, pile, amount):
     """
-    Updates the current board according to the Human's move
+    Updates the current board according to the Human's move and picks the AI's response.
+    If the Human has already lost before the AI move or the AI loses after its move,
+    session["winner"] is updated.
     """
     pile = int(pile)
     amount = int(amount)
 
     # Take chosen amount of objects from the pile
-    # (but don't allow negative amounts)
     session["current_board"][pile] -= amount
 
+    # Get AI move and update board
+    pile, amount = session["nim_ai"].choose_action(session["current_board"], epsilon=False)
+    session["current_board"][pile] -= amount
 
-def ai_move(session):
-    """
-    Requests an AI move and updates the current board.
-    If the Human has already lost before the AI move or the AI loses after its move,
-    session["winner"] is updated.
-    """
-    # If Human has already lost
+    # If AI lost the game
     if not any(session["current_board"]):
-        session["winner"] = "AI"
+        session["winner"] = "Human"
 
-    # If game is still going on
-    else:
-        pile, amount = session["nim_ai"].choose_action(session["current_board"], epsilon=False)
+    return pile, amount
 
-        # Update board based on AI move
-        session["current_board"][pile] -= amount
-        print(session["current_board"])
-
-        # If AI lost the game
-        if not any(session["current_board"]):
-            session["winner"] = "Human"

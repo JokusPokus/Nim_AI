@@ -1,4 +1,4 @@
-//congig paticle js library
+//config paticle js library
 particlesJS("particles-js", {
   particles: {
     number: {
@@ -109,8 +109,8 @@ particlesJS("particles-js", {
   },
   retina_detect: true,
 });
-
-function showDiv() {
+/* Preloader function*/
+function showPreloader() {
   document.querySelector(".content__container").style.display = "none";
   document.querySelector(".content__btn").style.display = "none";
   document.querySelector(".preload").style.display = "block";
@@ -118,13 +118,69 @@ function showDiv() {
     document.querySelector(".preload").style.display = "none";
   }, 10000);
 }
-
-function checkCoins() {
-  const rowElements = document.querySelectorAll(".board-list__row");
-  let chosenRow = document.querySelector(".board-list__check:checked");
-  // console.log(chosenRow);
-  rowElements.forEach((row) => {
-    // console.log(row);
+/* Validation of coins*/
+$(".board-list__check").each(function () {
+  $(this).on("click", function () {
+    let clickedID = $(this).parents("div .row").attr("id");
+    $(".board-list__item").each(function () {
+      //if input is checked
+      if (
+        $(this).parent().attr("id") !== clickedID &&
+        $("#board li:has(input:checked)").length !== 0
+      ) {
+        $(this).parent().css("opacity", "0.2");
+        $(this).find("input").attr("disabled", true);
+      } else {
+        $(this).parent().css("opacity", "1");
+        $(this).find("input").attr("disabled", false);
+      }
+    });
   });
-}
-checkCoins();
+});
+
+/* Number of rounds to train*/
+const numberOfRounds = document.querySelector('input[type="range"]');
+let newLevelValue;
+const rangeValue = function () {
+  let newValue = numberOfRounds.value;
+  let target = document.querySelector(".value");
+  target.innerHTML = newValue;
+  let level = document.querySelector(".level");
+
+  if (newValue <= 20) {
+    newLevelValue = "EASY PEASY";
+    level.classList.remove("level2");
+    level.classList.remove("level3");
+    level.classList.remove("level4");
+    level.classList.remove("level5");
+  } else if (newValue <= 100) {
+    newLevelValue = "A LIL' CHALLENGE";
+    level.classList.remove("level3");
+    level.classList.remove("level4");
+    level.classList.remove("level5");
+    level.classList.add("level2");
+  } else if (newValue <= 200) {
+    newLevelValue = "KINDA HARD";
+    level.classList.remove("level2");
+    level.classList.remove("level4");
+    level.classList.remove("level5");
+    level.classList.add("level3");
+  } else if (newValue <= 500) {
+    newLevelValue = "REALLY HARD";
+    level.classList.remove("level2");
+    level.classList.remove("level3");
+    level.classList.remove("level5");
+    level.classList.add("level4");
+  } else {
+    newLevelValue = "PREPARE TO CRY";
+    level.classList.remove("level2");
+    level.classList.remove("level3");
+    level.classList.remove("level4");
+    level.classList.add("level5");
+  }
+  level.innerHTML = newLevelValue;
+  return newLevelValue;
+};
+
+
+numberOfRounds.addEventListener("input", rangeValue);

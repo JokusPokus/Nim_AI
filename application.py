@@ -1,6 +1,7 @@
-from flask import Flask, render_template, url_for, request, session, make_response
+from flask import Flask, render_template, url_for, request, session, make_response, jsonify
 from flask_session import Session
 import nim_gameplay as ngp
+import time
 
 app = Flask(__name__)
 
@@ -24,29 +25,25 @@ def nim_train():
 @app.route("/nim", methods=["POST"])
 def nim():
     # When training is requested (via POST request)
-    ngp.train_and_initialize(session, request.form.get("n_train"), board=INITIAL_BOARD.copy())
+    ngp.train_and_initialize(session, request.form.get(
+        "n_train"), board=INITIAL_BOARD.copy())
+    time.sleep(3)
     return render_template("nim.html",
                            new_board=session["current_board"],
                            winner=session["winner"])
 
 
-@app.route("/nim_move", methods=["GET", "POST"])
-def nim_move():
-    # If AI move is requested and game still going: Calculate an AI move
-    # If game over: Show result
-    if request.args.get("status") == "ai_move":
-        ngp.ai_move(session)
-
-    # When player makes a move
-    else:
-        for i in range(len(session["current_board"])):
-            # Form input will only be non-empty for the selected row
-            if request.form.getlist(f"row_{i}"):
-                pile = i
-                amount = len(request.form.getlist(f"row_{i}"))
-                ngp.player_move(session, pile, amount)
-
-    return render_template("nim_board.html", winner=session["winner"], new_board=session["current_board"])
+@app.route("/ai_move", methods=["POST"])
+def ai_move():
+    for i in range(len(session["current_board"])):
+        # Form input will only be non-empty for the selected row
+        if request.form.getlist(f"row_{i}"):
+            player_pile = i
+            player_amount = len(request.form.getlist(f"row_{i}"))
+    print("Player move: " + str(player_pile) + " " + str(player_amount))
+    ai_pile, ai_amount = ngp.ai_move(session, player_pile, player_amount)
+    print("MOVE: Pile " + str(ai_pile) + " Amount " + str(ai_amount))
+    return jsonify(winner=session["winner"], pile=ai_pile, amount=ai_amount)
 
 
 @app.route("/reset", methods=["GET"])

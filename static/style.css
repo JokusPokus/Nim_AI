@@ -53,7 +53,8 @@ a:hover {
   z-index: 1;
   flex-direction: column;
   margin-top: 60px;
-  margin-bottom: 60px;
+  align-items: center;
+  margin-bottom: 20px;
 }
 .content__container {
   padding: 40px;
@@ -123,6 +124,11 @@ a:hover {
   justify-content: center;
   align-items: center;
 }
+@media screen and (max-width: 1200px) {
+  .controls {
+    font-size: 16px;
+  }
+}
 .controls-btn {
   padding: 15px 25px;
   margin-top: 20px;
@@ -164,8 +170,18 @@ input[type="checkbox"][id^="coin"] {
 .board-list__item label {
   display: block;
   position: relative;
-  margin: 10px;
+  margin: 3px;
   cursor: pointer;
+}
+.form-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+@media screen and (min-width: 1200px) {
+  .board-list__item label {
+    margin: 10px;
+  }
 }
 
 .board-list__item label:before {
@@ -193,6 +209,10 @@ input[type="checkbox"][id^="coin"] {
   transform-origin: 50% 50%;
 }
 
+.board-list__placeholder {
+  width: 80px;
+}
+
 :checked + label:before {
   content: "✓";
   background-color: grey;
@@ -204,6 +224,20 @@ input[type="checkbox"][id^="coin"] {
   z-index: -1;
   opacity: 0.6;
 }
+.row__placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px dashed #fff;
+  background-color: #fff;
+  opacity: 0.2;
+}
+.hidden {
+  visibility: hidden;
+}
+.hidden-first {
+  display: none;
+}
 /* alert */
 .screen-alert {
   background-color: transparent;
@@ -213,7 +247,6 @@ input[type="checkbox"][id^="coin"] {
   border-left-color: #080808;
   border-right-color: #080808;
   border-top-color: #020202;
-  box-shadow: inset 0 0 18rem black, inset 0 0 3rem black, 0 0 10rem black;
   pointer-events: none;
 }
 .screen-alert #message {
@@ -225,13 +258,18 @@ input[type="checkbox"][id^="coin"] {
   color: yellow;
 }
 .screen-alert #message {
-  background-color: #031e11;
+  background-color: #000000;
   text-shadow: 0rem 0.2rem 1rem #0c7b46;
 }
 .screen-alert__win {
+  color: hotpink;
+  font-size: 50px;
+  font-weight: bold;
 }
 .screen-alert__lose {
   color: red;
+  font-size: 50px;
+  font-weight: bold;
 }
 /* animate coins */
 .bounce-in-top {
@@ -258,6 +296,49 @@ input[type="checkbox"][id^="coin"] {
 }
 .bounce-in-top:nth-child(8) {
   animation-delay: 2s;
+}
+
+/* range styles */
+.value {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  color: #1c2a3a;
+  text-shadow: white 2px 2px 2px;
+}
+.level {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: white 2px 2px 2px;
+  margin-top: 20px;
+}
+input[type="range"] {
+  display: block;
+  -webkit-appearance: none;
+  background-color: #bdc3c7;
+  width: 300px;
+  height: 5px;
+  border-radius: 5px;
+  margin: 0 auto;
+  outline: none;
+  padding: 4px 0;
+}
+.level2 {
+  color: darkgreen;
+}
+.level3 {
+  color: darkorange;
+}
+.level4 {
+  color: orangered;
+}
+.level5 {
+  color: red;
+}
+.fade-out {
+  -webkit-animation: fade-out 1s ease-out both;
+  animation: fade-out 1s ease-out both;
 }
 /**
  * ----------------------------------------
@@ -395,4 +476,26 @@ input[type="checkbox"][id^="coin"] {
 
 #set-amount {
   display: inline-block;
+}
+
+/**
+ * ----------------------------------------
+ * animation fade-out
+ * ----------------------------------------
+ */
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
