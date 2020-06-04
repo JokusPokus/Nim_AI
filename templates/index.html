@@ -2,12 +2,34 @@
 
 
 {% block body %}
+
 <div class="content__container">
-
-    <h1>Welcome to the game!</h1>
-
-    <h2 class="mt-3 mb-5">Can you learn faster than the AI?</h2>
-    <a href="{{ url_for('nim_train') }}" class="content__btn">Challenge accepted!</a>
+    <div class="screen-alert">
+        <div id="message">
+            <div class="" role="alert">
+                Welcome to the game!
+            </div>
+        </div>
+    </div>
+    <h3 class="mt-4 mb-3 explanations">Can you learn faster than the AI?</h3>
+    <a href="{{ url_for('nim_train') }}"><button class="content__btn">Challenge accepted!</button></a><br>
+    <button id="rules__btn" class="content__btn" onclick="showRules()">Check out rules</button>
 </div>
 
+<div id="rules__text" class="content__container mt-3" style="display:none;">
+    <div>
+        <p class="explanations">Nim is a game for 2 players. In this version, there are 4 rows with
+            different amounts of coins:</p>
+        <img class="my-3 explanations__img" src="..\static\img\initial_board.PNG" alt="Initial Nim board" style="width:50%">
+        <p class="explanations">Until the game is over, you and the AI take turns in removing
+            coins from the board. In each turn, you have to pick a row. From that row, you can remove
+            as many coins as you want - <strong>but at least 1!</strong></p>
+        <p class="explanations">Whoever takes the last coin on the board <strong>loses</strong> the game. Hence,
+            your goal is to force the AI to take the last coin.</p>
+        <img class="my-3 explanations__img" src="..\static\img\board_end.PNG" alt="Initial Nim board" style="width:30%">
+        <p class="explanations">In this state of the board, the winning move would be to remove both coins from
+            the second row. Then, all the AI can do is take the last remaining coin and lose.</p>
+        <a href="{{ url_for('nim_train') }}"><button class="content__btn">Let's go!</button></a>
+    </div>
+</div>
 {% endblock %}

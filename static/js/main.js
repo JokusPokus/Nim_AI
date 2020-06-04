@@ -153,19 +153,19 @@ const rangeValue = function () {
     level.classList.remove("level3");
     level.classList.remove("level4");
     level.classList.remove("level5");
-  } else if (newValue <= 100) {
+  } else if (newValue <= 150) {
     newLevelValue = "A LIL' CHALLENGE";
     level.classList.remove("level3");
     level.classList.remove("level4");
     level.classList.remove("level5");
     level.classList.add("level2");
-  } else if (newValue <= 200) {
+  } else if (newValue <= 300) {
     newLevelValue = "KINDA HARD";
     level.classList.remove("level2");
     level.classList.remove("level4");
     level.classList.remove("level5");
     level.classList.add("level3");
-  } else if (newValue <= 500) {
+  } else if (newValue <= 700) {
     newLevelValue = "REALLY HARD";
     level.classList.remove("level2");
     level.classList.remove("level3");
@@ -182,5 +182,13 @@ const rangeValue = function () {
   return newLevelValue;
 };
 
+function showRules() {
+  let x = document.getElementById("rules__text");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
 
 numberOfRounds.addEventListener("input", rangeValue);

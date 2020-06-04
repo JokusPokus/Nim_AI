@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="./static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Iceland&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="icon" href="{{url_for('static', filename='./img/favicon.ico')}}" type="image/x-icon">
     <title>nimAI</title>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
@@ -18,9 +19,8 @@
 <body>
 
     <div class="wrapper">
-        <div class="logo">&#60; nimAI &#62;</div>
         <main class="content ">
-
+        <a href="/"><div class="logo">&#60; nimAI &#62;</div></a>
             {% block body %}
             {% endblock %}
         </main>

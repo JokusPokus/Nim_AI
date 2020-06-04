@@ -24,7 +24,9 @@ def nim_train():
 
 @app.route("/nim", methods=["POST"])
 def nim():
-    # When training is requested (via POST request)
+    # When training is requested
+    if int(request.form.get("n_train")) > 1000:
+        exit()
     ngp.train_and_initialize(session, request.form.get(
         "n_train"), board=INITIAL_BOARD.copy())
     time.sleep(3)

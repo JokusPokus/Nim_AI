@@ -16,9 +16,9 @@
     </div>
 
     <form action="{{ url_for('ai_move') }}" id="makeMove" method="POST" class="make-move-form">
-        <ul id="board" class="mb-5 mx-3 board-list">
+        <ul id="board" class="mb-3 mx-3 board-list">
             {% for i in range(new_board|length) %}
-            <div class="row mb-3 board-list__row" id="row_{{i}}">
+            <div class="row board-list__row" id="row_{{i}}">
                 {% for j in range(new_board[i]) %}
                 <li class="bounce-in-top board-list__item">
                     <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="row_{{i}}"
@@ -38,7 +38,7 @@
     <div class="screen-alert">
         <div id="message">
             <div class="" role="alert">
-                Please make a move!
+                Select coins and submit move!
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
         <a href="{{ url_for('nim_train') }}">
             <button type="submit" class="controls-btn mr-3">Change Level</button>
         </a>
-        <button form="makeMove" type="submit" id="submit-btn" class="content__btn">Make your move</button>
+        <button form="makeMove" type="submit" id="submit-btn" class="content__btn">Submit move</button>
         <form action="{{ url_for('reset') }}" id="reset" method="GET" class="">
             <button type="submit" class="controls-btn ml-3">Reset game</button>
         </form>
