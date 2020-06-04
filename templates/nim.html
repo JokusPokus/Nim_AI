@@ -7,15 +7,9 @@
 {% block body %}
 <!-- <div class="board-level row__placeholder"></div> -->
 <div class="form-wrapper">
-    <div id="winning-animation" class="hidden-first">
-        <!--  Your winning animation here  -->
-    </div>
-
-    <div id="losing-animation" class="hidden-first">
-        <!--  Your losing animation here  -->
-    </div>
 
     <form action="{{ url_for('ai_move') }}" id="makeMove" method="POST" class="make-move-form">
+
         <ul id="board" class="mb-3 mx-3 board-list">
             {% for i in range(new_board|length) %}
             <div class="row board-list__row" id="row_{{i}}">
@@ -32,6 +26,32 @@
 
         </ul>
     </form>
+</div>
+
+<div id="losing-animation" class="result content__container mb-5" hidden>
+
+    <p class="explanations__opaque">Don't you wonder how the AI became smart enough to beat you...?</p>
+    <p class="explanations__opaque">Check out my Medium article on Q-learning!</p>
+
+    <div class="controls">
+        <a href="https://medium.com/@jakob.schmitt/who-learns-faster-you-or-my-ai-681e442416b0" target="_blank">
+            <button class="content__btn">Read article</button>
+        </a>
+    </div>
+
+</div>
+
+<div id="winning-animation" class="result content__container mb-5" hidden>
+
+    <p class="explanations__opaque">Not bad... Now make the AI smarter and try again!</p>
+    <p class="explanations__opaque">What's the highest number you can beat?</p>
+
+    <div class="controls">
+        <a href="{{ url_for('nim_train') }}">
+            <button class="content__btn">Make it harder!</button>
+        </a>
+    </div>
+
 </div>
 
 <div class="ai-ops content__container">
@@ -87,10 +107,11 @@
 
         if (remainingCoins == 0) {
             // Make losing animation visible
-            $("#submit-btn").addClass("hidden");
+            $("#submit-btn").prop("disabled", true);
             window.setTimeout(function () {
-                $("#message").html("<div class='' role='alert'>You lost!</div>")
-                $("#losing-animation").removeClass("hidden-first");
+                $("#message").html("<div class='' role='alert'>Oops... You lost!</div>")
+                $("#board").attr("hidden", true);
+                $("#losing-animation").attr("hidden", false);
             }, 500);
         } else {
             // Human has not lost --> AI move is required.
@@ -127,15 +148,16 @@
                         };
                         if (ai_response["winner"] === "Human") {
                             // Make winning animation visible
-                            $("#submit-btn").addClass("hidden");
+                            $("#submit-btn").prop("disabled", true);
                             window.setTimeout(function () {
                                 $("#message").html("<div class='' role='alert'>Congrats, you won!</div>");
-                                $("#winning-animation").removeClass("hidden-first");
+                                $("#board").attr("hidden", true);
+                                $("#winning-animation").attr("hidden", false);
                             }, 500);
                         } else {
                             $("#message").html("<div class='' role='alert'>AI made a move. Your turn!</div>");
                         };
-                    }, 2000);
+                    }, 1500);
                 }
             });
         };
