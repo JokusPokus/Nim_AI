@@ -47,7 +47,7 @@
         <a href="{{ url_for('nim_train') }}">
             <button type="submit" class="controls-btn mr-3">Change Level</button>
         </a>
-        <button form="makeMove" type="submit" id="submit-btn" class="content__btn">Submit move</button>
+        <button form="makeMove" type="submit" id="submit-btn" class="content__btn" disabled>Submit move</button>
         <form action="{{ url_for('reset') }}" id="reset" method="GET" class="">
             <button type="submit" class="controls-btn ml-3">Reset game</button>
         </form>
@@ -59,9 +59,23 @@
 {% block scripts %}
 
 <script>
+    $(".board-list__item").click(function() {
+        let remainingCheckedCoins = $("#board input:checked").length;
+        if (remainingCheckedCoins == 0) {
+            // No coins have been selected
+            $("#submit-btn").prop("disabled", true);
+        } else {
+            // At least one coin is currently selected
+            $("#submit-btn").prop("disabled", false);
+        };
+    })
+
     $("#makeMove").submit(function (event) {
 
         event.preventDefault(); // avoid to execute the actual submit of the form.
+
+        // Disable submit button
+        $("#submit-btn").prop("disabled", true);
 
         // Player Move --> Let the selected coins disappear
         $("#board li:has(input:checked)").addClass("hidden");
@@ -69,7 +83,7 @@
             $(this).parent().css("opacity", "1");
             $(this).find("input").attr("disabled", false);
         });
-        const remainingCoins = $("#board li:not(.hidden)").length;
+        let remainingCoins = $("#board li:not(.hidden)").length;
 
         if (remainingCoins == 0) {
             // Make losing animation visible
