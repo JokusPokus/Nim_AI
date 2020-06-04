@@ -62,7 +62,9 @@
 
         // Player Move --> Let the selected coins disappear
         $("#board li:has(input:checked)").css("visibility", "hidden");
-
+        $(".board-list__item").each(function () {
+            $(this).parent().css("opacity", "1");
+        });
         const remainingCoins = $("#board li:visible").length;
 
         if (remainingCoins == 0) {

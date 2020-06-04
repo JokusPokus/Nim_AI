@@ -129,8 +129,10 @@ $(".board-list__item").each(function () {
         $("#board li:has(input:checked)").length !== 0
       ) {
         $(this).parent().css("opacity", "0.2");
+        $(this).find("input").attr("disabled", true);
       } else {
         $(this).parent().css("opacity", "1");
+        $(this).find("input").attr("disabled", false);
       }
     });
   });
