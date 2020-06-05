@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Iceland&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="icon" href="{{url_for('static', filename='./img/favicon.ico')}}" type="image/x-icon">
     <title>nimAI</title>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
@@ -20,10 +21,24 @@
 
     <div class="wrapper">
         <main class="content ">
-        <div id="high-score" class="mr-5">Your high score: {{ high_score }}</div>
+        <div id="high-score">Your high score: {{ high_score }}</div>
         <a href="/"><div class="logo">&#60; nimAI &#62;</div></a>
             {% block body %}
             {% endblock %}
+        <div id="credits">
+            <div>
+                <a href="https://www.linkedin.com/in/ibayova/" target="_blank">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+                Irina (Frontend, Design)
+            </div>
+            <div class="ml-5">
+                <a href="https://www.linkedin.com/in/jakob-schmitt-048179196/" target="_blank">
+                    <i class="fa fa-linkedin-square"></i>
+                </a>
+                Jakob (Machine Learning, Backend, Frontend)
+            </div>
+        </div>
         </main>
         <div id="particles-js"></div>
 

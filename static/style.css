@@ -54,6 +54,16 @@ a:hover {
   color: #e9d05d;
   font-size: 40px;
 }
+#credits {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  color: #e9d05d;
+  font-size: 15px;
+}
+#credits > div {
+  float: left;
+}
 .content {
   width: 60%;
   margin: 0 auto;
