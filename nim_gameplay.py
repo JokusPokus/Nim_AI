@@ -38,6 +38,7 @@ def ai_move(session, pile, amount):
     # If AI lost the game
     if not any(session["current_board"]):
         session["winner"] = "Human"
+        session["high_score"] = max(session["n_train"], session["high_score"])
 
     return pile, amount
 

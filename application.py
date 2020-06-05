@@ -14,12 +14,16 @@ INITIAL_BOARD = [1, 3, 5, 7]
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    session["high_score"] = session.get("high_score", 0)
+    return render_template("index.html",
+                           high_score=session["high_score"])
 
 
 @app.route("/nim_train", methods=["GET"])
 def nim_train():
-    return render_template("nim_train.html")
+    session["high_score"] = session.get("high_score", 0)
+    return render_template("nim_train.html",
+                           high_score=session["high_score"])
 
 
 @app.route("/nim", methods=["POST"])
@@ -34,11 +38,15 @@ def nim():
     elif n_train > 100:
         n_train = 100 + (n_train - 100) * 9
 
+    session["n_train"] = n_train
+    session["high_score"] = session.get("high_score", 0)
+
     ngp.train_and_initialize(session, n_train, board=INITIAL_BOARD.copy())
     time.sleep(2.9)
     return render_template("nim.html",
                            new_board=session["current_board"],
-                           winner=session["winner"])
+                           winner=session["winner"],
+                           high_score=session["high_score"])
 
 
 @app.route("/ai_move", methods=["POST"])
@@ -48,10 +56,13 @@ def ai_move():
         if request.form.getlist(f"row_{i}"):
             player_pile = i
             player_amount = len(request.form.getlist(f"row_{i}"))
-    print("Player move: " + str(player_pile) + " " + str(player_amount))
+
     ai_pile, ai_amount = ngp.ai_move(session, player_pile, player_amount)
-    print("MOVE: Pile " + str(ai_pile) + " Amount " + str(ai_amount))
-    return jsonify(winner=session["winner"], pile=ai_pile, amount=ai_amount)
+
+    return jsonify(winner=session["winner"],
+                   pile=ai_pile,
+                   amount=ai_amount,
+                   high_score=session["high_score"])
 
 
 @app.route("/reset", methods=["GET"])
@@ -59,4 +70,5 @@ def reset():
     ngp.reset_board(session, board=INITIAL_BOARD.copy())
     return render_template("nim.html",
                            new_board=session["current_board"],
-                           winner=session["winner"])
+                           winner=session["winner"],
+                           high_score=session["high_score"])

@@ -149,10 +149,14 @@
                         if (ai_response["winner"] === "Human") {
                             // Make winning animation visible
                             $("#submit-btn").prop("disabled", true);
+
+                            let new_high_score = ai_response["high_score"];
+
                             window.setTimeout(function () {
                                 $("#message").html("<div class='' role='alert'>Congrats, you won!</div>");
                                 $("#board").attr("hidden", true);
                                 $("#winning-animation").attr("hidden", false);
+                                $("#high-score").html("Your high score: " + new_high_score.toString())
                             }, 500);
                         } else {
                             $("#message").html("<div class='' role='alert'>AI made a move. Your turn!</div>");

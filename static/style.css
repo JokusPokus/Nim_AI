@@ -47,6 +47,13 @@ a:hover {
   color: #e9d05d;
   font-size: 48px;
 }
+#high-score {
+  position: absolute;
+  top: 18px;
+  left: 30px;
+  color: #e9d05d;
+  font-size: 40px;
+}
 .content {
   width: 60%;
   margin: 0 auto;
