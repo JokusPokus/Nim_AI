@@ -8,6 +8,8 @@ body {
   font-size: 18px;
   font-family: "VT323", monospace;
   line-height: 1.42;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 canvas {
   display: block;

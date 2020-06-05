@@ -24,12 +24,18 @@ def nim_train():
 
 @app.route("/nim", methods=["POST"])
 def nim():
-    # When training is requested
-    if int(request.form.get("n_train")) > 1000:
+    # Training is requested
+    n_train = int(request.form.get("n_train"))
+    if n_train > 300:
         exit()
-    ngp.train_and_initialize(session, request.form.get(
-        "n_train"), board=INITIAL_BOARD.copy())
-    time.sleep(3)
+
+    if n_train > 200:
+        n_train = 1000 + (n_train - 200) * 90
+    elif n_train > 100:
+        n_train = 100 + (n_train - 100) * 9
+
+    ngp.train_and_initialize(session, n_train, board=INITIAL_BOARD.copy())
+    time.sleep(2.9)
     return render_template("nim.html",
                            new_board=session["current_board"],
                            winner=session["winner"])
