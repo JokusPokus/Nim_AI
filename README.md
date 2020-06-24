@@ -70,7 +70,7 @@ To keep track of session data, we use the `flask_session` package, which stores 
 
 Consider this general overview:
 
-![Architecture Diagram](diagram.png?raw=true "Diagram")
+![](diagram.PNG?raw=true "Diagram")
 ## Built with
 
 - Python 3.7.4
