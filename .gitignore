@@ -6,3 +6,5 @@ flask_session
 db.sqlite3
 *.DS_Store
 /*_session/
+venv
+.idea
