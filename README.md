@@ -68,6 +68,9 @@ These moves, in turn, are determined by calling Python functions (see `nimAI.py`
 
 To keep track of session data, we use the `flask_session` package, which stores information like the session-level high score in a dictionary-like object.
 
+Consider this general overview:
+
+![Architecture Diagram](diagram.png?raw=true "Diagram")
 ## Built with
 
 - Python 3.7.4
