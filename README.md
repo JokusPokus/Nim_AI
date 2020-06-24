@@ -8,7 +8,7 @@ Click [here](https://towardsdatascience.com/who-learns-faster-you-or-my-ai-681e4
 
 ## Getting started
 
-### Prerequisits
+### Prerequisites
 
 There should be a recent [Python](https://www.python.org/downloads/) version (3.x) installed on your computer. 
 
@@ -62,7 +62,7 @@ flask run
 
 ## Architecture Overview
 
-The main file that controls routing is `application.py`.
+The main file controling the routing is `application.py`.
 
 Some views are rendered server-side using HTML templates and sent to the client. However, for the game playing part, a dynamic AJAX infrastructure is used to manipulate the UI client-side based on the AI moves. 
 
@@ -86,4 +86,4 @@ Consider this general overview:
 
 ## Acknowledgements
 
-Parts of the reinforcement learning code was taken from the great online course [CS50's Introduction to Artificial Intelligence](https://cs50.harvard.edu/ai/2020/), in particular from [unit 4 on learning](https://cs50.harvard.edu/ai/2020/weeks/4/).
+Parts of the reinforcement learning code were taken from the great online course [CS50's Introduction to Artificial Intelligence](https://cs50.harvard.edu/ai/2020/), in particular from [unit 4 on learning](https://cs50.harvard.edu/ai/2020/weeks/4/).
