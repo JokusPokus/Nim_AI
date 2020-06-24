@@ -2,7 +2,7 @@
 
 NimAI is a web application that allows the user to challenge a reinforcement learning agent to a game of Nim. Before playing, the user can decide how much practice the AI is getting in order to learn a good policy.
 
-A deployed version can be found [here](https://nimai.herokuapp.com/).
+A deployed version hosted on [Heroku](https://heroku.com/) can be found [here](https://nimai.herokuapp.com/). 
 
 Click [here](https://towardsdatascience.com/who-learns-faster-you-or-my-ai-681e442416b0) for a high-level explanation of how the reinforcement learning part works.
 
@@ -61,6 +61,8 @@ flask run
 ```
 
 ## Architecture Overview
+
+The main file that controls routing is `application.py`.
 
 Some views are rendered server-side using HTML templates and sent to the client. However, for the game playing part, a dynamic AJAX infrastructure is used to manipulate the UI client-side based on the AI moves. 
 
