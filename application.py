@@ -14,6 +14,11 @@ INITIAL_BOARD = [1, 3, 5, 7]
 
 @app.route("/")
 def index():
+    """
+    Render landing page with the options to
+    - expand and read the rules
+    - select training options
+    """
     session["high_score"] = session.get("high_score", 0)
     return render_template("index.html",
                            high_score=session["high_score"])
@@ -21,6 +26,10 @@ def index():
 
 @app.route("/nim_train", methods=["GET"])
 def nim_train():
+    """
+    Render training page
+    allowing user to select the amount of AI training rounds
+    """
     session["high_score"] = session.get("high_score", 0)
     return render_template("nim_train.html",
                            high_score=session["high_score"])
@@ -28,11 +37,20 @@ def nim_train():
 
 @app.route("/nim", methods=["POST"])
 def nim():
-    # Training is requested
+    """
+    Train AI agent
+    and render game-playing page with initialized board
+    """
+    # Training with n_train rounds is requested
     n_train = int(request.form.get("n_train"))
+
+    # BE validation to avoid malicious post requests
+    # (n_train cannot be set to > 300 by using FE functionality)
     if n_train > 300:
         exit()
 
+    # The input slider is not linear.
+    # For higher numbers, one slider unit increases n_train quicker.
     if n_train > 200:
         n_train = 1000 + (n_train - 200) * 90
     elif n_train > 100:
@@ -51,6 +69,10 @@ def nim():
 
 @app.route("/ai_move", methods=["POST"])
 def ai_move():
+    """
+    Request an AI move and send it back to client as JSON.
+    Requests are managed via AJAX.
+    """
     for i in range(len(session["current_board"])):
         # Form input will only be non-empty for the selected row
         if request.form.getlist(f"row_{i}"):
@@ -67,6 +89,9 @@ def ai_move():
 
 @app.route("/reset", methods=["GET"])
 def reset():
+    """
+    Reset the board without training the AI agent again.
+    """
     ngp.reset_board(session, board=INITIAL_BOARD.copy())
     return render_template("nim.html",
                            new_board=session["current_board"],
