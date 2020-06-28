@@ -570,25 +570,3 @@ input[type="range"] {
 #set-amount {
   display: inline-block;
 }
-
-/**
- * ----------------------------------------
- * animation fade-out
- * ----------------------------------------
- */
-@-webkit-keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
