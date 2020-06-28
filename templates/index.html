@@ -13,14 +13,16 @@
     </div>
     <h3 id="index__slogan" class="mt-4 mb-3 explanations">Can you learn faster than the AI?</h3>
     <a href="{{ url_for('nim_train') }}"><button class="content__btn">Challenge accepted!</button></a>
-    <button id="rules__btn" class="content__btn ml-4" onclick="showRules()">Check out rules</button>
+    <!-- <button id="rules__btn" class="content__btn ml-4" onclick="showRules()"><i class="fa fa-info"
+            aria-hidden="true"></i></button> -->
 </div>
 
 <div id="rules__text" class="content__container index__container mt-3 mb-5" style="display:none;">
     <div>
         <p class="explanations">Nim is a game for 2 players. In this version, there are 4 rows with
             different amounts of coins:</p>
-        <img class="my-5 explanations__img" src="..\static\img\initial_board.PNG" alt="Initial Nim board" style="width:50%">
+        <img class="my-5 explanations__img" src="..\static\img\initial_board.PNG" alt="Initial Nim board"
+            style="width:50%">
         <p class="explanations">Until the game is over, you and the AI take turns in removing
             coins from the board. In each turn, you have to pick a row. From that row, you can remove
             as many coins as you want - <strong>but at least 1!</strong></p>
