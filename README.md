@@ -4,7 +4,7 @@ NimAI is a web application that allows the user to challenge a reinforcement lea
 
 A deployed version hosted on [Heroku](https://heroku.com/) can be found [here](https://nimai.herokuapp.com/). 
 
-Click [here](https://towardsdatascience.com/who-learns-faster-you-or-my-ai-681e442416b0) for a high-level explanation of how the reinforcement learning part works.
+Please click [here](https://towardsdatascience.com/who-learns-faster-you-or-my-ai-681e442416b0) for a high-level explanation of how the reinforcement learning part works.
 
 ## Getting started
 
