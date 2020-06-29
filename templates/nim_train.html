@@ -1,39 +1,47 @@
 {% extends "layout.html" %}
 
-
 {% block body %}
-<div class="content__container">
-    <div class="screen-alert">
-        <div id="message">
-            <div class="" role="alert">
-                Let the AI learn the game!
+
+    <div class="content__container">
+
+        <!-- Initial message -->
+        <div class="screen-alert">
+            <div id="message">
+                <div class="" role="alert">
+                    Let the AI learn the game!
+                </div>
             </div>
         </div>
+
+        <!-- Training control -->
+        <form method="POST" id="train" action="{{ url_for('nim') }}">
+
+            <div class="mt-4 explanations">
+                <p>To become a Nim master, the AI needs to
+                    practice by playing against itself.</p>
+                <p><strong>You</strong> decide how many rounds the agent is allowed to practice.</p>
+            </div>
+            <div class="d-flex justify-content-center flex-column">
+                <div class="value">1</div>
+                <input name="n_train" type="range" class="mt-4 train-slider" min="1" max="300" required
+                       value="1">
+                <div class="level">EASY PEASY</div>
+            </div>
+        </form>
+
     </div>
-    <form method="POST" id="train" action="{{ url_for('nim') }}">
+    <div class="content-controllers d-flex justify-content-center">
+        <button type="submit" form="train" class="content__btn" id="train-btn" onclick="showPreloader()">Start
+            Training!
+        </button>
 
-        <div class="mt-4 explanations">
-            <p>To become a Nim master, the AI needs to
-                practice by playing against itself.</p>
-            <p><strong>You</strong> decide how many rounds the agent is allowed to practice.</p>
-        </div>
-        <div class="d-flex justify-content-center flex-column">
-            <div class="value">1</div>
-            <input name="n_train" type="range" class="mt-4 train-slider" min="1" max="300" required
-                value="1">
-            <div class="level">EASY PEASY</div>
-        </div>
-    </form>
-</div>
-<div class="content-controllers d-flex justify-content-center">
-    <button type="submit" form="train" class="content__btn" id="train-btn" onclick="showPreloader()">Start
-        Training!</button>
+    </div>
 
-</div>
-<div class="preload">
-    <img class="brain" src="{{url_for('static', filename='img/brain.png')}}">
-    <span class="preload__text ml-3">Training</span>
-    <span class="dots preload__text">...</span>
-</div>
+    <!-- Training buffer animation -->
+    <div class="preload">
+        <img class="brain" src="{{ url_for('static', filename='img/brain.png') }}">
+        <span class="preload__text ml-3">Training</span>
+        <span class="dots preload__text">...</span>
+    </div>
 
 {% endblock %}

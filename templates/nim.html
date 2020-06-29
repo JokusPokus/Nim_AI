@@ -1,171 +1,162 @@
 {% extends "layout.html" %}
 
-{% block heading %}
-
-{% endblock %}
-
 {% block body %}
-<!-- <div class="board-level row__placeholder"></div> -->
-<div class="form-wrapper">
 
-    <form action="{{ url_for('ai_move') }}" id="makeMove" method="POST" class="make-move-form">
-
-        <ul id="board" class="mb-3 mx-3 board-list">
-            {% for i in range(new_board|length) %}
-            <div class="row board-list__row" id="row_{{i}}">
-                {% for j in range(new_board[i]) %}
-                <li class="bounce-in-top board-list__item">
-                    <input class="board-list__check" type="checkbox" id="coin{{i}}{{j}}" name="row_{{i}}"
-                        value="Clicked" />
-                    <label for="coin{{i}}{{j}}"><img class="board-list__img "
-                            src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png" /></label>
-                </li>
+    <!-- Visual game tracking (coin board) -->
+    <div class="form-wrapper">
+        <form action="{{ url_for('ai_move') }}" id="makeMove" method="POST" class="make-move-form">
+            <ul id="board" class="mb-3 mx-3 board-list">
+                {% for i in range(new_board|length) %}
+                    <div class="row board-list__row" id="row_{{ i }}">
+                        {% for j in range(new_board[i]) %}
+                            <li class="bounce-in-top board-list__item">
+                                <input class="board-list__check" type="checkbox" id="coin{{ i }}{{ j }}"
+                                       name="row_{{ i }}"
+                                       value="Clicked"/>
+                                <label for="coin{{ i }}{{ j }}"><img class="board-list__img "
+                                                                     src="https://www.bitgild.com/wp-content/uploads/2020/01/50g-china-panda-gold-proof-2020-1-2.png"/></label>
+                            </li>
+                        {% endfor %}
+                    </div>
                 {% endfor %}
-            </div>
-            {% endfor %}
-
-        </ul>
-    </form>
-</div>
-
-<div id="losing-animation" class="result content__container mb-5" hidden>
-
-    <p class="explanations__opaque">Don't you wonder how the AI became smart enough to beat you...?</p>
-    <p class="explanations__opaque">Check out my Medium article on Q-learning!</p>
-
-    <div class="controls">
-        <a href="https://medium.com/@jakob.schmitt/who-learns-faster-you-or-my-ai-681e442416b0" target="_blank">
-            <button class="content__btn">Read article</button>
-        </a>
+            </ul>
+        </form>
     </div>
 
-</div>
-
-<div id="winning-animation" class="result content__container mb-5" hidden>
-
-    <p class="explanations__opaque">Not bad... Now make the AI smarter and try again!</p>
-    <p class="explanations__opaque">What's the highest number you can beat?</p>
-
-    <div class="controls">
-        <a href="{{ url_for('nim_train') }}">
-            <button class="content__btn">Make it harder!</button>
-        </a>
-    </div>
-
-</div>
-
-<div class="ai-ops content__container mb-5">
-    <div class="screen-alert">
-        <div id="message">
-            <div class="" role="alert">
-                Select coins and submit move!
-            </div>
+    <!-- Message after user loses -->
+    <div id="losing-animation" class="result content__container mb-5" hidden>
+        <p class="explanations__opaque">Don't you wonder how the AI became smart enough to beat you...?</p>
+        <p class="explanations__opaque">Check out my Medium article on Q-learning!</p>
+        <div class="controls">
+            <a href="https://medium.com/@jakob.schmitt/who-learns-faster-you-or-my-ai-681e442416b0" target="_blank">
+                <button class="content__btn">Read article</button>
+            </a>
         </div>
     </div>
 
-    <div class="controls">
-        <a href="{{ url_for('nim_train') }}">
-            <button type="submit" class="controls-btn mr-3">Change Level</button>
-        </a>
-        <button form="makeMove" type="submit" id="submit-btn" class="content__btn" disabled>Submit move</button>
-        <form action="{{ url_for('reset') }}" id="reset" method="GET" class="">
-            <button type="submit" class="controls-btn ml-3">Reset game</button>
-        </form>
+    <!-- Message after user wins -->
+    <div id="winning-animation" class="result content__container mb-5" hidden>
+        <p class="explanations__opaque">Not bad... Now make the AI smarter and try again!</p>
+        <p class="explanations__opaque">What's the highest number you can beat?</p>
+        <div class="controls">
+            <a href="{{ url_for('nim_train') }}">
+                <button class="content__btn">Make it harder!</button>
+            </a>
+        </div>
     </div>
-</div>
+
+    <!-- Game control elements for human player -->
+    <div class="ai-ops content__container mb-5">
+        <div class="screen-alert">
+            <div id="message">
+                <div class="" role="alert">
+                    Select coins and submit move!
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <a href="{{ url_for('nim_train') }}">
+                <button type="submit" class="controls-btn mr-3">Change Level</button>
+            </a>
+            <button form="makeMove" type="submit" id="submit-btn" class="content__btn" disabled>Submit move</button>
+            <form action="{{ url_for('reset') }}" id="reset" method="GET" class="">
+                <button type="submit" class="controls-btn ml-3">Reset game</button>
+            </form>
+        </div>
+    </div>
 
 {% endblock %}
 
 {% block scripts %}
 
-<script>
-    $(".board-list__item").click(function() {
-        let remainingCheckedCoins = $("#board input:checked").length;
-        if (remainingCheckedCoins == 0) {
-            // No coins have been selected
-            $("#submit-btn").prop("disabled", true);
-        } else {
-            // At least one coin is currently selected
-            $("#submit-btn").prop("disabled", false);
-        };
-    })
+    <script>
+        $(".board-list__item").click(function () {
+            let remainingCheckedCoins = $("#board input:checked").length;
+            if (remainingCheckedCoins == 0) {
+                // No coins have been selected
+                $("#submit-btn").prop("disabled", true);
+            } else {
+                // At least one coin is currently selected
+                $("#submit-btn").prop("disabled", false);
+            }
 
-    $("#makeMove").submit(function (event) {
-
-        event.preventDefault(); // avoid to execute the actual submit of the form.
-
-        // Disable submit button
-        $("#submit-btn").prop("disabled", true);
-
-        // Player Move --> Let the selected coins disappear
-        $("#board li:has(input:checked)").addClass("hidden");
-        $(".board-list__item").each(function () {
-            $(this).parent().css("opacity", "1");
-            $(this).find("input").attr("disabled", false);
         });
-        let remainingCoins = $("#board li:not(.hidden)").length;
 
-        if (remainingCoins == 0) {
-            // Make losing animation visible
+        $("#makeMove").submit(function (event) {
+
+            event.preventDefault(); // avoid to execute the actual submit of the form.
+
+            // Disable submit button
             $("#submit-btn").prop("disabled", true);
-            window.setTimeout(function () {
-                $("#message").html("<div class='' role='alert'>Oops... You lost!</div>")
-                $("#board").attr("hidden", true);
-                $("#losing-animation").attr("hidden", false);
-            }, 500);
-        } else {
-            // Human has not lost --> AI move is required.
-            $("#message").html("<div class='' role='alert'>AI is analyzing the board...</div>")
 
-            const form = $(this);
-            const url = form.attr("action");
-
-            $.ajax({
-                url: url,
-                method: "POST",
-                async: false,
-                data: form.serialize(), // serializes the form's elements
-                dataType: "json",
-                success: function (ai_response) {
-                    // Uncheck the now hidden coins
-                    $("#board li.hidden input").prop("checked", false);
-
-                    //Leave it for now TODO to wrap in div
-                    $("#board li").each(function () {
-                        if ($(this).css("visibility") === "hidden") {
-                            $(this).find("label").addClass('row__placeholder')
-                            $(this).animate({ opacity: 0.0 }, 2000);
-
-                        }
-                    })
-                    window.setTimeout(function () {
-                        // Implement AI move
-                        let ai_pile = ai_response["pile"];
-                        let ai_amount = ai_response["amount"];
-                        let rowName = "row_" + ai_pile.toString();
-                        for (i = 0; i < ai_amount; i++) {
-                            $("#board li:not('.hidden'):has(input[name=" + rowName + "])").last().addClass("hidden");
-                        };
-                        if (ai_response["winner"] === "Human") {
-                            // Make winning animation visible
-                            $("#submit-btn").prop("disabled", true);
-
-                            let new_high_score = ai_response["high_score"];
-
-                            window.setTimeout(function () {
-                                $("#message").html("<div class='' role='alert'>Congrats, you won!</div>");
-                                $("#board").attr("hidden", true);
-                                $("#winning-animation").attr("hidden", false);
-                                $("#high-score").html("Your high score: " + new_high_score.toString())
-                            }, 500);
-                        } else {
-                            $("#message").html("<div class='' role='alert'>AI made a move. Your turn!</div>");
-                        };
-                    }, 1500);
-                }
+            // Player Move --> Let the selected coins disappear
+            $("#board li:has(input:checked)").addClass("hidden");
+            $(".board-list__item").each(function () {
+                $(this).parent().css("opacity", "1");
+                $(this).find("input").attr("disabled", false);
             });
-        };
-    });
-</script>
+            let remainingCoins = $("#board li:not(.hidden)").length;
+
+            if (remainingCoins != 0) {
+                // Human has not lost --> AI move is required.
+                $("#message").html("<div class='' role='alert'>AI is analyzing the board...</div>");
+
+                const form = $(this);
+                const url = form.attr("action");
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    async: false,
+                    data: form.serialize(), // serializes the form's elements
+                    dataType: "json",
+                    success: function (ai_response) {
+                        // Uncheck the now hidden coins
+                        $("#board li.hidden input").prop("checked", false);
+
+                        $("#board li").each(function () {
+                            if ($(this).css("visibility") === "hidden") {
+                                $(this).find("label").addClass('row__placeholder');
+                                $(this).animate({opacity: 0.0}, 2000);
+                            }
+                        });
+                        window.setTimeout(function () {
+                            // Implement AI move
+                            let ai_pile = ai_response["pile"];
+                            let ai_amount = ai_response["amount"];
+                            let rowName = "row_" + ai_pile.toString();
+                            for (i = 0; i < ai_amount; i++) {
+                                $("#board li:not('.hidden'):has(input[name=" + rowName + "])").last().addClass("hidden");
+                            }
+
+                            if (ai_response["winner"] === "Human") {
+                                // Make winning animation visible
+                                $("#submit-btn").prop("disabled", true);
+
+                                let new_high_score = ai_response["high_score"];
+
+                                window.setTimeout(function () {
+                                    $("#message").html("<div class='' role='alert'>Congrats, you won!</div>");
+                                    $("#board").attr("hidden", true);
+                                    $("#winning-animation").attr("hidden", false);
+                                    $("#high-score").html("Your high score: " + new_high_score.toString())
+                                }, 500);
+                            } else {
+                                $("#message").html("<div class='' role='alert'>AI made a move. Your turn!</div>");
+                            }
+                        }, 1500);
+                    }
+                });
+            } else {
+                // Make losing animation visible
+                $("#submit-btn").prop("disabled", true);
+                window.setTimeout(function () {
+                    $("#message").html("<div class='' role='alert'>Oops... You lost!</div>");
+                    $("#board").attr("hidden", true);
+                    $("#losing-animation").attr("hidden", false);
+                }, 500);
+            }
+        });
+    </script>
 
 {% endblock %}

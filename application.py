@@ -3,6 +3,7 @@ from flask_session import Session
 import nim_gameplay as ngp
 import time
 
+
 app = Flask(__name__)
 
 app.config["SESSION_PERMANENT"] = False
