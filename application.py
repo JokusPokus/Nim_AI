@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, session, make_response, jsonify
 from flask_session import Session
+
 import nim_gameplay as ngp
 import time
 
@@ -28,7 +29,7 @@ def index():
 @app.route("/nim_train", methods=["GET"])
 def nim_train():
     """
-    Render training page
+    Render training page,
     allowing user to select the amount of AI training rounds
     """
     session["high_score"] = session.get("high_score", 0)
