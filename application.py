@@ -1,7 +1,7 @@
-from flask import Flask, render_template, url_for, request, session, make_response, jsonify
+from flask import Flask, render_template, request, session, jsonify
 from flask_session import Session
 
-import nim_gameplay as ngp
+from AI import nim_gameplay as ngp
 import time
 
 

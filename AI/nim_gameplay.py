@@ -1,4 +1,4 @@
-from nimAI import train
+from AI.nimAI import train
 
 
 def train_and_initialize(session, n_train, board):
