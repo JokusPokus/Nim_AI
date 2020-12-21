@@ -10,4 +10,19 @@ venv
 .idea
 .pytest_cache
 tests
-.gitignore
+
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg

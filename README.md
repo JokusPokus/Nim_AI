@@ -60,6 +60,12 @@ export FLASK_APP=application
 flask run
 ```
 
+You may also wish to install the app in your virtual environment. Make sure to navigate to the Nim_AI root directory and execute:
+
+```s
+pip install -e .
+```
+
 ## Architecture Overview
 
 The main file controling the routing is `application.py`.
