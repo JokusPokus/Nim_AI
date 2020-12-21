@@ -1,0 +1,3 @@
+graft nim_ai/static
+graft nim_ai/templates
+global-exclude *.pyc
