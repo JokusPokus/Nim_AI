@@ -2,6 +2,7 @@ import math
 import random
 import time
 
+from .nim_structure import Nim
 
 class NimAI:
 

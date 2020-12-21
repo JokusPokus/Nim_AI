@@ -8,3 +8,5 @@ db.sqlite3
 /*_session/
 venv
 .idea
+.pytest_cache
+tests

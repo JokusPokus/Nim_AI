@@ -2,8 +2,8 @@ import math
 import random
 import time
 
+from .nim_structure import Nim
 from .nimAI import NimAI
-from .nim import Nim
 
 
 def train(n):
