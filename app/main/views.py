@@ -1,20 +1,13 @@
-from flask import Flask, render_template, request, session, jsonify
+from flask import Blueprint, render_template, request, session, jsonify
 from flask_session import Session
 
-from AI import nim_gameplay as ngp
+from . import main
+
+from app.AI import nim_gameplay as ngp
 import time
 
 
-app = Flask(__name__)
-
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
-
-INITIAL_BOARD = [1, 3, 5, 7]
-
-
-@app.route("/")
+@main.route("/")
 def index():
     """
     Render landing page with the options to
@@ -26,7 +19,7 @@ def index():
                            high_score=session["high_score"])
 
 
-@app.route("/nim_train", methods=["GET"])
+@main.route("/nim_train", methods=["GET"])
 def nim_train():
     """
     Render training page,
@@ -37,7 +30,7 @@ def nim_train():
                            high_score=session["high_score"])
 
 
-@app.route("/nim", methods=["POST"])
+@main.route("/nim", methods=["POST"])
 def nim():
     """
     Train AI agent
@@ -69,7 +62,7 @@ def nim():
                            high_score=session["high_score"])
 
 
-@app.route("/ai_move", methods=["POST"])
+@main.route("/ai_move", methods=["POST"])
 def ai_move():
     """
     Request an AI move and send it back to client as JSON.
@@ -89,7 +82,7 @@ def ai_move():
                    high_score=session["high_score"])
 
 
-@app.route("/reset", methods=["GET"])
+@main.route("/reset", methods=["GET"])
 def reset():
     """
     Reset the board without training the AI agent again.

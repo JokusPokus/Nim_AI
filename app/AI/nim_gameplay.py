@@ -1,4 +1,4 @@
-from AI.train import train
+from app.AI.train import train
 
 
 def train_and_initialize(session, n_train, board):
