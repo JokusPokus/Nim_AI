@@ -14,6 +14,12 @@ def create_app(config_name):
     # Initialize Plugins
     session.init_app(app)
 
+    register_blueprints(app)
+
+    return app
+
+
+def register_blueprints(app):
     # Routes
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
@@ -21,5 +27,3 @@ def create_app(config_name):
 
     from .AI import ai as ai_blueprint
     app.register_blueprint(ai_blueprint)
-
-    return app
