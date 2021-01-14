@@ -35,6 +35,14 @@ def ai_lost(current_board: List) -> bool:
     return not any(current_board)
 
 
+def declare_human_winner(session) -> None:
+    session["winner"] = "Human"
+
+
+def update_high_score(session) -> None:
+    session["high_score"] = max(session["n_train"], session["high_score"])
+
+
 def ai_move(session: Dict) -> Tuple[int, int]:
     """Picks the AI's response based on the current board,
     assuming it's the AI's turn.
@@ -45,11 +53,7 @@ def ai_move(session: Dict) -> Tuple[int, int]:
 
     # Get AI move and update board
     pile, amount = session["nim_ai"].choose_action(session["current_board"], epsilon=False)
-    session["current_board"][pile] -= amount
-
-    if ai_lost(session["current_board"]):
-        session["winner"] = "Human"
-        session["high_score"] = max(session["n_train"], session["high_score"])
 
     return pile, amount
+
 

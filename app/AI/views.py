@@ -1,9 +1,12 @@
-from flask import render_template, request, session, jsonify, current_app
-
-from . import ai
-
-from ..AI import nim_gameplay as ngp
 import time
+from flask import render_template, request, session, jsonify, current_app
+from . import ai
+from ..AI.nim_gameplay import (train_and_initialize,
+                               update_game_state,
+                               ai_lost,
+                               ai_move,
+                               declare_human_winner,
+                               update_high_score)
 
 
 @ai.route("/train", methods=["GET"])
@@ -41,7 +44,7 @@ def train_and_show_board():
     session["n_train"] = n_train
     session["high_score"] = session.get("high_score", 0)
 
-    ngp.train_and_initialize(session, n_train, board=current_app.config["INITIAL_BOARD"].copy())
+    train_and_initialize(session, n_train, board=current_app.config["INITIAL_BOARD"].copy())
     time.sleep(2.9)
     return render_template("nim.html",
                            new_board=session["current_board"],
@@ -50,19 +53,32 @@ def train_and_show_board():
 
 
 @ai.route("/ai_move", methods=["POST"])
-def update_game_state_and_send_ai_move():
+def send_ai_move():
     """
+    Update board state representation.
     Request an AI move and send it back to client as JSON.
     Requests are managed via AJAX.
     """
-    for i in range(len(session["current_board"])):
-        # Form input will only be non-empty for the selected row
-        if request.form.getlist(f"row_{i}"):
-            player_pile = i
-            player_amount = len(request.form.getlist(f"row_{i}"))
+    def get_player_move(session, request):
+        pile = amount = None
+        for i in range(len(session["current_board"])):
+            # Form input will only be non-empty for the selected row
+            if request.form.getlist(f"row_{i}"):  # e.g., ["Clicked", "Clicked", "Clicked]
+                pile = i
+                amount = len(request.form.getlist(f"row_{i}"))
+        return pile, amount
 
-    ngp.update_game_state(session, player_pile, player_amount)
-    ai_pile, ai_amount = ngp.ai_move(session, player_pile, player_amount)
+    # Player's move
+    player_pile, player_move = get_player_move(session, request)
+    update_game_state(session, player_pile, player_amount)
+
+    # AI's move
+    ai_pile, ai_amount = ai_move(session)
+    update_game_state(session, ai_pile, ai_amount)
+
+    if ai_lost(session["current_board"]):
+        declare_human_winner(session)
+        update_high_score(session)
 
     return jsonify(winner=session["winner"],
                    pile=ai_pile,
