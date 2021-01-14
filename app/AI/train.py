@@ -40,8 +40,8 @@ def train(n):
 
             # When game is over, update Q values with rewards
             if game.winner is not None:
-                player.update(state, action, new_state, -1)
-                player.update(
+                player._update(state, action, new_state, -1)
+                player._update(
                     last[game.player]["state"],
                     last[game.player]["action"],
                     new_state,
@@ -51,7 +51,7 @@ def train(n):
 
             # If game is continuing, no rewards yet
             elif last[game.player]["state"] is not None:
-                player.update(
+                player._update(
                     last[game.player]["state"],
                     last[game.player]["action"],
                     new_state,

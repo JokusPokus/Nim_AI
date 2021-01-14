@@ -4,6 +4,7 @@ import time
 
 from .nim_structure import Nim
 
+
 class NimAI:
 
     def __init__(self, alpha=0.5, epsilon=0.1):
@@ -20,24 +21,24 @@ class NimAI:
         self.alpha = alpha
         self.epsilon = epsilon
 
-    def update(self, old_state, action, new_state, reward):
+    def _update(self, old_state, action, new_state, reward):
         """
         Update Q-learning model, given an old state, an action taken
         in that state, a new resulting state, and the reward received
         from taking that action.
         """
-        old = self.get_q_value(old_state, action)
-        best_future = self.best_future_reward(new_state)
-        self.update_q_value(old_state, action, old, reward, best_future)
+        old = self._get_q_value(old_state, action)
+        best_future = self._best_future_reward(new_state)
+        self._update_q_value(old_state, action, old, reward, best_future)
 
-    def get_q_value(self, state, action):
+    def _get_q_value(self, state, action):
         """
         Return the Q-value for the state `state` and the action `action`.
         If no Q-value exists yet in `self.q`, return 0.
         """
         return self.q.get((tuple(state), action), 0)
 
-    def update_q_value(self, state, action, old_q, reward, future_rewards):
+    def _update_q_value(self, state, action, old_q, reward, future_rewards):
         """
         Update the Q-value for the state `state` and the action `action`
         given the previous Q-value `old_q`, a current reward `reward`,
@@ -58,7 +59,7 @@ class NimAI:
         # Update Q dictionary
         self.q[tuple(state), action] = new_q
 
-    def best_future_reward(self, state):
+    def _best_future_reward(self, state):
         """
         Given a state `state`, consider all possible `(state, action)`
         pairs available in that state and return the maximum of all
@@ -73,7 +74,7 @@ class NimAI:
         if not available:
             return 0
 
-        return max([self.get_q_value(state, action) for action in available])
+        return max([self._get_q_value(state, action) for action in available])
 
     def choose_action(self, state, epsilon=True):
         """
@@ -102,4 +103,4 @@ class NimAI:
         # Sort all actions by their q value and return the optimal action
         # [-1] --> highest Q value
         # [1] --> only action is returned, without Q value
-        return sorted([(self.get_q_value(state, action), action) for action in available])[-1][1]
+        return sorted([(self._get_q_value(state, action), action) for action in available])[-1][1]
