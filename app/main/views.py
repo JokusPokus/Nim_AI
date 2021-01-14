@@ -1,4 +1,4 @@
-from flask import render_template, request, session, jsonify
+from flask import render_template, request, session, jsonify, current_app
 
 from . import main
 
@@ -22,7 +22,7 @@ def reset():
     """
     Reset the board without training the AI agent again.
     """
-    ngp.reset_board(session, board=INITIAL_BOARD.copy())
+    ngp.reset_board(session, board=current_app.config["INITIAL_BOARD"].copy())
     return render_template("nim.html",
                            new_board=session["current_board"],
                            winner=session["winner"],

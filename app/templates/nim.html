@@ -4,7 +4,8 @@
 
     <!-- Visual game tracking (coin board) -->
     <div class="form-wrapper">
-        <form action="{{ url_for('ai.ai_move') }}" id="makeMove" method="POST" class="make-move-form">
+        <form action="{{ url_for('ai.update_game_state_and_send_ai_move') }}"
+              id="makeMove" method="POST" class="make-move-form">
             <ul id="board" class="mb-3 mx-3 board-list">
                 {% for i in range(new_board|length) %}
                     <div class="row board-list__row" id="row_{{ i }}">
@@ -39,7 +40,7 @@
         <p class="explanations__opaque">Not bad... Now make the AI smarter and try again!</p>
         <p class="explanations__opaque">What's the highest number you can beat?</p>
         <div class="controls">
-            <a href="{{ url_for('ai.nim_train') }}">
+            <a href="{{ url_for('ai.show_training_options') }}">
                 <button class="content__btn">Make it harder!</button>
             </a>
         </div>
@@ -55,7 +56,7 @@
             </div>
         </div>
         <div class="controls">
-            <a href="{{ url_for('ai.nim_train') }}">
+            <a href="{{ url_for('ai.show_training_options') }}">
                 <button type="submit" class="controls-btn mr-3">Change Level</button>
             </a>
             <button form="makeMove" type="submit" id="submit-btn" class="content__btn" disabled>Submit move</button>

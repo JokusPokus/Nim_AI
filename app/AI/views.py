@@ -6,8 +6,8 @@ from ..AI import nim_gameplay as ngp
 import time
 
 
-@ai.route("/nim_train", methods=["GET"])
-def nim_train():
+@ai.route("/train", methods=["GET"])
+def show_training_options():
     """
     Render training page,
     allowing user to select the amount of AI training rounds
@@ -18,7 +18,7 @@ def nim_train():
 
 
 @ai.route("/nim", methods=["POST"])
-def nim():
+def train_and_show_board():
     """
     Train AI agent
     and render game-playing page with initialized board
@@ -50,7 +50,7 @@ def nim():
 
 
 @ai.route("/ai_move", methods=["POST"])
-def ai_move():
+def update_game_state_and_send_ai_move():
     """
     Request an AI move and send it back to client as JSON.
     Requests are managed via AJAX.
@@ -61,6 +61,7 @@ def ai_move():
             player_pile = i
             player_amount = len(request.form.getlist(f"row_{i}"))
 
+    ngp.update_game_state(session, player_pile, player_amount)
     ai_pile, ai_amount = ngp.ai_move(session, player_pile, player_amount)
 
     return jsonify(winner=session["winner"],
